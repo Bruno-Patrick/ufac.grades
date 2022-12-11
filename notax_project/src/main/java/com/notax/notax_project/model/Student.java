@@ -20,22 +20,22 @@ public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    private Long id;
+    private Long student_id;
 
     @Column(nullable = false)
-    private String name;
+    private String student_name;
 
     @Column(nullable = false)
-    private Integer register;
+    private Integer student_register;
 
     @Column(nullable = true)
-    private String phone;
+    private String student_phone;
 
     @Column(nullable = true)
-    private String email;
+    private String student_email;
 
     @ManyToOne(optional = true)
-    private Responsible responsible_of_student;
+    private Responsible student_responsible;
 
     @Column(nullable = false)
     private Boolean student_active = true;
