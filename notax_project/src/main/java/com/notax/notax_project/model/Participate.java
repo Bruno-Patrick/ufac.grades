@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,20 +16,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Responsible implements Serializable{
+public class Participate implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long id;
+    private Long participate_id;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student_id;
 
-    @Column(nullable = true)
-    private String phone;
-
-    @Column(nullable = true)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "discipline_id", nullable = false)
+    private Discipline discipline_id;
 
 }

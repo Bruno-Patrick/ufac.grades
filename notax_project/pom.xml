@@ -12,7 +12,7 @@
 	<artifactId>notax_project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>notax_project</name>
-	<description>this project is destined for notes composition of Software Engineering discipline</description>
+	<description>This project is to be taken into account as part of the course</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
