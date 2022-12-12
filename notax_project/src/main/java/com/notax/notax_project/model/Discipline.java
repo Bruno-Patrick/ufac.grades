@@ -1,7 +1,6 @@
 package com.notax.notax_project.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +27,7 @@ public class Discipline implements Serializable {
     private String discipline_name;
     
     @Column(nullable = false)
-    private Date discipline_year;
+    private Integer discipline_year;
     
     @Column(nullable = false)
     private Integer discipline_semester;
