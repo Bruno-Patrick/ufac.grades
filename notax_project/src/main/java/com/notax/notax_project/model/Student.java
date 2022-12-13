@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,25 +27,30 @@ public class Student implements Serializable {
     private Long student_id;
 
     @Column(nullable = false)
+    @JsonProperty("nome")
     private String student_name;
 
     @Column(nullable = true)
+    @JsonProperty("telefone")
     private String student_phone;
 
     @Column(nullable = true)
+    @JsonProperty("email")
     private String student_email;
 
     @Column(nullable = false)
-    private Integer student_register;
+    @JsonProperty("matricula")
+    private String student_register;
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "responsible_id", nullable = true)
+    @JsonProperty("responsavel")
     private Responsible student_responsible;
 
     @Column(nullable = false)
     private Boolean student_active = true;
 
     @Column(nullable = false)
-    private Date student_account_creation = new Date();
+    private Date student_account_creation;
 
 }
