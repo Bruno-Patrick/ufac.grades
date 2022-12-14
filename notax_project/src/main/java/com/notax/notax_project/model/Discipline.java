@@ -21,18 +21,18 @@ public class Discipline implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long discipline_id;
+    private Long disciplineId;
 
     @Column(nullable = false)
-    private String discipline_name;
+    private String disciplineName;
     
     @Column(nullable = false)
-    private Integer discipline_year;
+    private Integer disciplineYear;
     
     @Column(nullable = false)
-    private Integer discipline_semester;
+    private Integer disciplineSemester;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "teacher_id", nullable = false)
-    private Teacher teacher_id;
+    @JoinColumn(name = "teacherId", nullable = false)
+    private Teacher teacherId;
 }

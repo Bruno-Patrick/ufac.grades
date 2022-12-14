@@ -22,35 +22,35 @@ public class Teacher implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long teacher_id;
+    private Long teacherId;
 
     @Column(nullable = false)
-    private String teacher_name;
+    private String teacherName;
 
     @Column(nullable = false)
-    private String teacher_phone;
+    private String teacherPhone;
 
     @Column(nullable = false, unique = true)
-    private String teacher_email;
+    private String teacherEmail;
 
     @Column(nullable = false, unique = true)
-    private String teacher_username;
+    private String teacherUsername;
 
     @Column(nullable = false)
-    private String teacher_password;
+    private String teacherPassword;
 
     @Column(nullable = false)
-    private Eroles teacher_role;
+    private Eroles teacherRole;
 
     @Column(nullable = false)
-    private Date teacher_birthdate;
+    private Date teacherBirthdate;
 
-    public void setTeacher_passoword(String password)
+    public void setTeacherPassoword(String password)
     {
-        setTeacher_passoword(password, true);
+        setTeacherPassoword(password, true);
     }
 
-    public void setTeacher_passoword(String password, boolean encript) 
+    public void setTeacherPassoword(String password, boolean encript) 
     {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         
@@ -58,7 +58,7 @@ public class Teacher implements Serializable{
         {
             password = passwordEncoder.encode(password);
         }
-        this.teacher_password = password;
+        this.teacherPassword = password;
     }
 
 }

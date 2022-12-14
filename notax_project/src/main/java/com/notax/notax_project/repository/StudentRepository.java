@@ -12,17 +12,17 @@ import com.notax.notax_project.model.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
     
-    // @Query
-    // (
-    //     "SELECT s FROM Student " +
-    //     "WHERE student_name LIKE %?1% " +
-    //     "OR student_phone LIKE %?1% " +
-    //     "OR student_register LIKE %?1%" +
-    //     "OR student_email LIKE %?1%"
-    // )
-    // List<Student> findByAll(String searchTerm);
+    @Query
+    (
+        "SELECT s FROM Student s " +
+        "WHERE studentName LIKE %?1% " +
+        "OR studentPhone LIKE %?1% " +
+        "OR studentRegister LIKE %?1% " +
+        "OR studentEmail LIKE %?1%"
+    )
+    List<Student> findByAll(String searchTerm);
 
-    // List<Student> findByStudent_responsible(Responsible responsible);
-    // Student findById(Long id);
+    List<Student> findByStudentResponsible(Responsible responsible);
 
+    
 }

@@ -37,10 +37,10 @@ public class StudentService implements ICrudService<Student>{
         return null;
     }
 
-    // public List<Student> getByAll(String searchTerm) {
-    //     List<Student> registers = student_repo.findByAll(searchTerm);
-    //     return registers;
-    // }
+    public List<Student> getByAll(String searchTerm) {
+        List<Student> registers = student_repo.findByAll(searchTerm);
+        return registers;
+    }
 
     @Override
     public Student save(Student objeto) {

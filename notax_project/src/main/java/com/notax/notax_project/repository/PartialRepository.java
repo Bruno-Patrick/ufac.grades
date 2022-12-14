@@ -15,9 +15,9 @@ public interface PartialRepository extends JpaRepository<Partial, Long>{
     @Query
     (
         "SELECT p FROM Partial p " +
-        "WHERE partial_title LIKE %?1% " +
-        "OR partial_description LIKE %?1% " +
-        "OR partial_indentifier LIKE %?1%"
+        "WHERE partialTitle LIKE %?1% " +
+        "OR partialDescription LIKE %?1% " +
+        "OR partialIndentifier LIKE %?1%"
     )
     List<Partial> findByAll(String searchTerm);
 

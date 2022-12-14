@@ -14,16 +14,16 @@ public interface DisciplineRepository extends JpaRepository<Discipline, Long>{
     @Query
     (
         "SELECT d FROM Discipline d " +
-        "WHERE discipline_name LIKE %?1% " +
-        "OR discipline_year LIKE %?1% " +
-        "OR discipline_semester LIKE %?1%"
+        "WHERE disciplineName LIKE %?1% " +
+        "OR disciplineYear LIKE %?1% " +
+        "OR disciplineSemester LIKE %?1%"
     )
     List<Discipline> findByAll(String searchTerm);
     
     @Query
     (
         "SELECT d FROM Discipline d " +
-        "WHERE discipline_name LIKE %?1%"
+        "WHERE disciplineName LIKE %?1%"
     )
     List<Discipline> findDisciplineByName(String searchTerm);
 

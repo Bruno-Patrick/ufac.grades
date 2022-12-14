@@ -47,17 +47,16 @@ public class StudentController implements ICrudController<Student> {
     @Override
     @GetMapping("/consultar/termo/{searchTerm}")
     public ResponseEntity<List<Student>> getByAll(@PathVariable("searchTerm") String searchTerm) {
-        // List<Student> registers = student_service.getByAll(searchTerm);
-        // return new ResponseEntity<>(registers, HttpStatus.OK);
-        return null;
+        List<Student> registers = student_service.getByAll(searchTerm);
+        return new ResponseEntity<>(registers, HttpStatus.OK);
     }
 
     @Override
     @PostMapping("/cadastrar")
     public ResponseEntity<Student> insert(@RequestBody Student objeto) {
-        objeto.setStudent_account_creation(new Date());
-        objeto.setStudent_responsible(null);
-        objeto.setStudent_active(true);
+        objeto.setStudentAccountCreationTimestamp(new Date());
+        objeto.setStudentResponsible(null);
+        objeto.setStudentActive(true);
         Student register = student_service.save(objeto);
         return new ResponseEntity<>(register, HttpStatus.CREATED);
     }
@@ -72,6 +71,13 @@ public class StudentController implements ICrudController<Student> {
     @Override
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        Student register = student_service.getById(id);
+        
+        if (register == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         student_service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

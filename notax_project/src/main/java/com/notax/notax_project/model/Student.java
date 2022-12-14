@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,33 +25,36 @@ public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    private Long student_id;
+    @JsonProperty("id")
+    private Long studentId;
 
     @Column(nullable = false)
     @JsonProperty("nome")
-    private String student_name;
+    private String studentName;
 
     @Column(nullable = true)
     @JsonProperty("telefone")
-    private String student_phone;
+    private String studentPhone;
 
     @Column(nullable = true)
-    @JsonProperty("email")
-    private String student_email;
+    @JsonProperty(value = "email")
+    private String studentEmail;
 
     @Column(nullable = false)
     @JsonProperty("matricula")
-    private String student_register;
+    private String studentRegister;
 
     @ManyToOne(optional = true)
-    @JoinColumn(name = "responsible_id", nullable = true)
+    @JoinColumn(name = "responsibleId", nullable = true)
     @JsonProperty("responsavel")
-    private Responsible student_responsible;
+    private Responsible studentResponsible;
 
     @Column(nullable = false)
-    private Boolean student_active = true;
+    @JsonProperty("ativo")
+    private Boolean studentActive = true;
 
     @Column(nullable = false)
-    private Date student_account_creation;
+    @JsonProperty("timestamp")
+    private Date studentAccountCreationTimestamp;
 
 }

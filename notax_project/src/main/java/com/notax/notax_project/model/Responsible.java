@@ -19,15 +19,15 @@ public class Responsible implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long id;
+    private Long responsibleId;
 
     @Column(nullable = false)
-    private String name;
+    private String responsibleName;
 
     @Column(nullable = true)
-    private String phone;
+    private String responsiblePhone;
 
     @Column(nullable = true)
-    private String email;
+    private String responsibleMail;
 
 }

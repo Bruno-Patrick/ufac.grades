@@ -21,14 +21,14 @@ public class Participate implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long participate_id;
+    private Long participateId;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private Student student_id;
+    @JoinColumn(name = "studentId", nullable = false)
+    private Student studentId;
 
     @ManyToOne
-    @JoinColumn(name = "discipline_id", nullable = false)
-    private Discipline discipline_id;
+    @JoinColumn(name = "disciplineId", nullable = false)
+    private Discipline disciplineId;
 
 }

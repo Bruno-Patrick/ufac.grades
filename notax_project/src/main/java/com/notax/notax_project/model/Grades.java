@@ -21,17 +21,17 @@ public class Grades implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long grades_id;
+    private Long gradesId;
 
     @Column(nullable = false)
-    private Float grades_value;
+    private Float gradesValue;
 
     @ManyToOne
-    @JoinColumn(name = "partial_id", nullable = false)
-    private Partial partial_id;
+    @JoinColumn(name = "partialId", nullable = false)
+    private Partial partialId;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private Student student_id;
+    @JoinColumn(name = "studentId", nullable = false)
+    private Student studentId;
 
 }

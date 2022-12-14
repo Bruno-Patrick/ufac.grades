@@ -21,19 +21,19 @@ public class Partial implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
-    private Long partial_id;
+    private Long partialId;
 
     @Column(nullable = false)
-    private String partial_title;
+    private String partialTitle;
 
     @Column(nullable = true)
-    private String partial_description;
+    private String partialDescription;
 
     @Column(nullable = false)
-    private Epartials partial_indentifier;
+    private Epartials partialIndentifier;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "discipline_id", nullable = false)
-    private Discipline discipline_id;
+    @JoinColumn(name = "disciplineId", nullable = false)
+    private Discipline disciplineId;
 
 }
