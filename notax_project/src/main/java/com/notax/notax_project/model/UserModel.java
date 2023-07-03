@@ -35,7 +35,10 @@ public class UserModel implements Serializable {
     private Date createTime;
 
     @Column(nullable = false)
-    private String fullname;
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(nullable = true)
     private String phone;

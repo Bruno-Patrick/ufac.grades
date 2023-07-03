@@ -2,11 +2,14 @@ package com.notax.notax_project.model;
 
 import java.io.Serializable;
 
+import com.notax.notax_project.enums.GradeIdentEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -27,26 +30,20 @@ public class GradeModel implements Serializable {
     private Float grade;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private StudentModel student;
     
     @ManyToOne
+    @JoinColumn(nullable = false)
     private DisciplineModel discipline;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private PartialModel partial;
 
     @Column(nullable = false)
     private Integer weight;
 
     @Column(nullable = false)
-    private Boolean isPartial;
-
-    @Column(nullable = false)
-    private Boolean isN1;
-
-    @Column(nullable = false)
-    private Boolean isN2;
-
-    @Column(nullable = false)
-    private Boolean isFinal;
+    private GradeIdentEnum gradeIdentificator;
 }

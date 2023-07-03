@@ -41,7 +41,7 @@ public class DisciplineModel implements Serializable {
     private String description;
 
     @Column(nullable = false, updatable = false)
-    private long createTime = new Date().getTime();
+    private Long createTime = new Date().getTime();
 
     @Column(nullable = false)
     private Boolean isActive = true;
