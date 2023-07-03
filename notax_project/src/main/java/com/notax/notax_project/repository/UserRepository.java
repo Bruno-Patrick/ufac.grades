@@ -9,6 +9,7 @@ import com.notax.notax_project.model.UserModel;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
-    UserModel findByEmail(String email);
-    List<UserModel> findAllByFirstNameAndLastName(String firstName, String lastName);
+    UserModel findByEmailAndIsActiveTrue(String email);
+    List<UserModel> findAllByFirstNameAndLastNameAndIsActiveTrue(String firstName, String lastName);
+    List<UserModel> findAllByIsActiveTrue();
 }

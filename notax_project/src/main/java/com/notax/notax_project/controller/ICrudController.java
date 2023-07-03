@@ -6,9 +6,8 @@ import org.springframework.http.ResponseEntity;
 
 public interface ICrudController<T> {
     
-    public ResponseEntity<List<T>> getAll();
-    public ResponseEntity<T> getById();
-    public ResponseEntity<T> insert();
-    public ResponseEntity<T> update();
-    public ResponseEntity<T> delete();
+    public ResponseEntity<List<T>> getAll() throws Exception;
+    public ResponseEntity<T> insert() throws Exception;
+    public ResponseEntity<T> update() throws Exception;
+    public ResponseEntity<T> delete() throws Exception;
 }

@@ -12,7 +12,7 @@
 	<artifactId>notax_project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>notax_project</name>
-	<description>This project is to be taken into account as part of the course</description>
+	<description>To obtain a grade for the Software Engineering II course</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-security.version>6.1.1</spring-security.version>
@@ -20,6 +20,12 @@
 	</properties>
 	<dependencies>
 	
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 		 <dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
