@@ -55,7 +55,7 @@ public class UserService implements ICrudService<UserDTO> {
 
     public List<UserDTO> getAllByFirstNameAndLastName(String firtName, String lastName) throws Exception {
         try {
-            List<UserModel> users = repo.findAllByFirstNameAndLastNameAndIsActiveTrue(lastName, lastName);
+            List<UserModel> users = repo.findAllByFirstNameAndLastNameAndIsActiveTrue(firtName, lastName);
             return users.stream().map(user -> modelMapper.map(
                                                             users,
                                                             UserDTO.class
