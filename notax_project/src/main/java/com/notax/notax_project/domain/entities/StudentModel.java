@@ -1,4 +1,4 @@
-package com.notax.notax_project.model;
+package com.notax.notax_project.domain.entities;
 
 import java.io.Serializable;
 import java.util.List;
@@ -39,13 +39,14 @@ public class StudentModel implements Serializable {
     private List<DisciplineModel> disciplinesList;
 
     @OneToMany
-    @JoinTable(name = "student_guardian",
-               joinColumns = @JoinColumn(name = "student",
+    @JoinTable(
+        name = "student_guardian",
+        joinColumns = @JoinColumn(name = "student",
+                                  nullable = false
+                      ),
+        inverseJoinColumns = @JoinColumn(name = "guardian",
                                          nullable = false
-                            ),
-               inverseJoinColumns = @JoinColumn(name = "guardian",
-                                                nullable = false
-                                    )
+                             )
     )
     @JoinColumn(nullable = true)
     private List<GuardianModel> guardiansList;

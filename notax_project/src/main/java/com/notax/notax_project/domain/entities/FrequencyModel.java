@@ -1,6 +1,6 @@
-package com.notax.notax_project.model;
+package com.notax.notax_project.domain.entities;
 
-import java.io.Serializable;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,19 +16,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "partial")
-public class PartialModel implements Serializable {
+@Table(name = "frequency")
+public class FrequencyModel {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private Date date;
 
-    @Column(nullable = true)
-    private String description;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private StudentModel student;
 
     @ManyToOne
     @JoinColumn(nullable = false)

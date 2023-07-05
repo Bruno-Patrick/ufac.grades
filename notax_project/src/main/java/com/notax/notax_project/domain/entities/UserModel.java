@@ -1,4 +1,4 @@
-package com.notax.notax_project.model;
+package com.notax.notax_project.domain.entities;
 
 import java.io.Serializable;
 import java.util.Date;

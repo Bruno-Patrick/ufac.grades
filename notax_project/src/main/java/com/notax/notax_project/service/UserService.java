@@ -5,11 +5,10 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.DTO.UserDTO;
-import com.notax.notax_project.model.UserModel;
+import com.notax.notax_project.domain.entities.UserModel;
 import com.notax.notax_project.repository.UserRepository;
 
 @Service
@@ -30,11 +29,10 @@ public class UserService implements ICrudService<UserDTO> {
             List<UserModel> userList = repo.findAllByIsActiveTrue();
             return userList.stream()
                     .map(model -> modelMapper.map(
-                                                  userList,
-                                                  UserDTO.class
-                                                )
-                    )
-                    .collect(Collectors.toList());
+                            userList,
+                            UserDTO.class
+                        )
+                    ).collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -44,9 +42,9 @@ public class UserService implements ICrudService<UserDTO> {
     public UserDTO getByEmail(String email) throws Exception {
         try {
             return modelMapper.map(
-                                   repo.findByEmailAndIsActiveTrue(email),
-                                   UserDTO.class
-                                );
+                repo.findByEmailAndIsActiveTrue(email),
+                UserDTO.class
+            );
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -57,10 +55,10 @@ public class UserService implements ICrudService<UserDTO> {
         try {
             List<UserModel> users = repo.findAllByFirstNameAndLastNameAndIsActiveTrue(firtName, lastName);
             return users.stream().map(user -> modelMapper.map(
-                                                            users,
-                                                            UserDTO.class
-                                                        )
-                                    ).collect(Collectors.toList());
+                                        users,
+                                        UserDTO.class
+                                     )
+            ).collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -80,8 +78,27 @@ public class UserService implements ICrudService<UserDTO> {
     @Override
     public void delete(Long id) throws Exception {
         try {
+            repo.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public void desativateById(Long id) throws Exception {
+        try {
             UserModel user = repo.findById(id).orElse(null);
             user.setIsActive(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public void activeById(Long id) throws Exception {
+        try {
+            UserModel user = repo.findById(id).orElse(null);
+            user.setIsActive(true);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

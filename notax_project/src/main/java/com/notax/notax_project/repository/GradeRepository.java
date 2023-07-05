@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.notax.notax_project.model.DisciplineModel;
-import com.notax.notax_project.model.GradeModel;
-import com.notax.notax_project.model.PartialModel;
-import com.notax.notax_project.model.StudentModel;
+import com.notax.notax_project.domain.entities.DisciplineModel;
+import com.notax.notax_project.domain.entities.GradeModel;
+import com.notax.notax_project.domain.entities.PartialModel;
+import com.notax.notax_project.domain.entities.StudentModel;
 
 @Repository
 public interface GradeRepository extends  JpaRepository<GradeModel, Long> {

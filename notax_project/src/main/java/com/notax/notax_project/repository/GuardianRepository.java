@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.notax.notax_project.model.GuardianModel;
-import com.notax.notax_project.model.StudentModel;
+import com.notax.notax_project.domain.entities.GuardianModel;
+import com.notax.notax_project.domain.entities.StudentModel;
 
 @Repository
 public interface GuardianRepository extends JpaRepository<GuardianModel, Long> {

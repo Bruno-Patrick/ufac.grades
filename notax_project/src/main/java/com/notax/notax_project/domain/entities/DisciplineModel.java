@@ -1,4 +1,4 @@
-package com.notax.notax_project.model;
+package com.notax.notax_project.domain.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -41,7 +41,7 @@ public class DisciplineModel implements Serializable {
     private String description;
 
     @Column(nullable = false, updatable = false)
-    private Long createTime = new Date().getTime();
+    private Date createTime;
 
     @Column(nullable = false)
     private Boolean isActive = true;

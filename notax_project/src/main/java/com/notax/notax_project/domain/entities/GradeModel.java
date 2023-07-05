@@ -1,8 +1,8 @@
-package com.notax.notax_project.model;
+package com.notax.notax_project.domain.entities;
 
 import java.io.Serializable;
 
-import com.notax.notax_project.enums.GradeIdentEnum;
+import com.notax.notax_project.domain.enums.GradeIdentEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

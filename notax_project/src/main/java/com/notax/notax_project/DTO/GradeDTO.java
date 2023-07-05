@@ -3,7 +3,7 @@ package com.notax.notax_project.DTO;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.notax.notax_project.enums.GradeIdentEnum;
+import com.notax.notax_project.domain.enums.GradeIdentEnum;
 
 public record GradeDTO(
     Long id,
