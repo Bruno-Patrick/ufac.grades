@@ -29,7 +29,7 @@ public class UserService implements ICrudService<UserDTO> {
             List<UserModel> userList = repo.findAllByIsActiveTrue();
             return userList.stream()
                     .map(model -> modelMapper.map(
-                            userList,
+                            model,
                             UserDTO.class
                         )
                     ).collect(Collectors.toList());
@@ -55,7 +55,7 @@ public class UserService implements ICrudService<UserDTO> {
         try {
             List<UserModel> users = repo.findAllByFirstNameAndLastNameAndIsActiveTrue(firtName, lastName);
             return users.stream().map(user -> modelMapper.map(
-                                        users,
+                                        user,
                                         UserDTO.class
                                      )
             ).collect(Collectors.toList());

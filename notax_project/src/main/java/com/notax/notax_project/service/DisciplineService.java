@@ -5,11 +5,16 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.notax.notax_project.DTO.DisciplineDTO;
+import com.notax.notax_project.DTO.StudentDTO;
 import com.notax.notax_project.domain.entities.DisciplineModel;
+import com.notax.notax_project.domain.entities.StudentModel;
 import com.notax.notax_project.repository.DisciplineRepository;
 
+@Service
 public class DisciplineService implements ICrudService<DisciplineDTO> {
 
     private final DisciplineRepository repo;
@@ -37,6 +42,19 @@ public class DisciplineService implements ICrudService<DisciplineDTO> {
         }
     }
 
+    @Transactional
+    public List<StudentDTO> getAllStudentsByDisciplineId(Long id) throws Exception {
+        try {
+            List<StudentModel> students = repo.findById(id).orElse(null).getStudentsList();
+            return students.stream().map(
+                model -> modelMapper.map(model, StudentDTO.class)
+            ).collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     @Override
     public DisciplineDTO getById(Long id) throws Exception {
         try {
@@ -51,17 +69,21 @@ public class DisciplineService implements ICrudService<DisciplineDTO> {
     public DisciplineDTO save(DisciplineDTO object) throws Exception {
         try {
             repo.save(modelMapper.map(object, DisciplineModel.class));
+            return object;
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
-        return object;
     }
 
-    public DisciplineDTO desactivateById(DisciplineDTO object) throws Exception{
+    public DisciplineDTO changeIsActivate(DisciplineDTO object, Boolean activate) throws Exception{
         try {
             DisciplineModel discipline = repo.findById(object.id()).orElse(null);
-            discipline.setIsActive(false);
+            if (activate) {
+                discipline.setIsActive(true);
+            } else {
+                discipline.setIsActive(false);
+            }
             return modelMapper.map(repo.save(discipline), DisciplineDTO.class);
         } catch (Exception e) {
             e.printStackTrace();
