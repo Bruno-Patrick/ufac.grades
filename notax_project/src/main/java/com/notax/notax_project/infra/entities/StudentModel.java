@@ -41,13 +41,18 @@ public class StudentModel implements Serializable {
     @OneToMany
     @JoinTable(
         name = "student_guardian",
-        joinColumns = @JoinColumn(name = "student",
-                                  nullable = false
-                      ),
-        inverseJoinColumns = @JoinColumn(name = "guardian",
-                                         nullable = false
-                             )
+        joinColumns = @JoinColumn(
+            name = "student",
+            nullable = false
+        ),
+        inverseJoinColumns = @JoinColumn(
+            name = "guardian",
+            nullable = false
+        )
     )
     @JoinColumn(nullable = true)
     private List<GuardianModel> guardiansList;
+
+    @OneToMany(mappedBy = "student")
+    private List<FrequencyModel> frequencies;
 }

@@ -18,6 +18,6 @@ public interface GuardianRepository extends JpaRepository<GuardianModel, Long> {
         "OR gr.phone LIKE :searchTerm "+
         "OR gr.email like :searchTerm"
     )
-    GuardianModel findByNameOrPhoneOrEmail(@Param("searchTerm") String searchTerm);
+    List<GuardianModel> findByNameOrPhoneOrEmail(@Param("searchTerm") String searchTerm);
     List<GuardianModel> findAllByStudentsList(StudentModel students);
 }

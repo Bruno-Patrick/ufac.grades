@@ -61,4 +61,7 @@ public class DisciplineModel implements Serializable {
     )
     @JoinColumn(nullable = true)
     private List<StudentModel> studentsList;
+
+    @OneToMany(mappedBy = "discipline")
+    private List<FrequencyModel> frequecies;
 }

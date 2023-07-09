@@ -6,30 +6,32 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.notax.notax_project.application.DTO.PartialDTO;
-import com.notax.notax_project.infra.entities.PartialModel;
-import com.notax.notax_project.infra.repository.PartialRepository;
+import com.notax.notax_project.application.DTO.GuardianDTO;
+import com.notax.notax_project.infra.entities.GuardianModel;
+import com.notax.notax_project.infra.repository.GuardianRepository;
 
-public class PartialService implements ICrudService<PartialDTO> {
+public class GuardianService implements ICrudService<GuardianDTO> {
 
-    private final PartialRepository repo;
+    private final GuardianRepository repo;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public PartialService(PartialRepository repo, ModelMapper modelMapper) {
+    public GuardianService(
+        GuardianRepository repo,
+        ModelMapper modelMapper
+    ) {
         this.repo = repo;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<PartialDTO> getAll() throws Exception {
+    public List<GuardianDTO> getAll() throws Exception {
         try {
-            List<PartialModel> partials = repo.findAll();
-            return partials.stream().map(
+            List<GuardianModel> guardians = repo.findAll();
+            return guardians.stream().map(
                 model -> modelMapper.map(
                     model,
-                    PartialDTO.class
-                )
+                    GuardianDTO.class)
             ).collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,12 +40,9 @@ public class PartialService implements ICrudService<PartialDTO> {
     }
 
     @Override
-    public PartialDTO getById(Long id) throws Exception {
+    public GuardianDTO getById(Long id) throws Exception {
         try {
-            return modelMapper.map(
-                repo.findById(id),
-                PartialDTO.class
-            );
+            return modelMapper.map(repo.findById(id), GuardianDTO.class);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -51,9 +50,11 @@ public class PartialService implements ICrudService<PartialDTO> {
     }
 
     @Override
-    public PartialDTO save(PartialDTO object) throws Exception {
+    public GuardianDTO save(GuardianDTO object) throws Exception {
         try {
-            repo.save(modelMapper.map(object,PartialModel.class));
+            repo.save(
+                modelMapper.map(object, GuardianModel.class)
+            );
             return object;
         } catch (Exception e) {
             e.printStackTrace();
