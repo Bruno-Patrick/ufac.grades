@@ -6,21 +6,27 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-public record DisciplineDTO(
-    Long id,
-    String name,
-    Integer year,
-    Integer semester,
-    String description,
-    @JsonProperty(value = "create_time",
-                  access = Access.READ_ONLY
-    ) Long createTime,
-    @JsonProperty(value = "is_active",
-                  access = Access.READ_ONLY
-    ) Boolean isActive,
-    UserDTO user,
-    @JsonProperty("students") List<StudentDTO> studentsList
-) {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class DisciplineDTO {
+    Long id;
+    String name;
+    Integer year;
+    Integer semester;
+    String description;
+    @JsonProperty(value = "create_time", access = Access.READ_ONLY) 
+    Long createTime;
+    @JsonProperty(value = "is_active")
+    Boolean isActive;
+    UserDTO user;
+    @JsonProperty("students")
+    List<StudentDTO> studentsList;
+
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put(this.id.toString(), this.id);

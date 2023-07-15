@@ -3,12 +3,19 @@ package com.notax.notax_project.application.DTO;
 import java.util.Date;
 import java.util.HashMap;
 
-public record FrequencyDTO(
-    Long id,
-    Date date,
-    StudentDTO student,
-    DisciplineDTO discipline
-) {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class FrequencyDTO {
+    Long id;
+    DisciplineDTO discipline;
+    Date date;
+    StudentDTO student;
+
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put(this.id.toString(), this.id);

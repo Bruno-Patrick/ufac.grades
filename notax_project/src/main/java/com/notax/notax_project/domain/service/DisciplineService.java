@@ -78,7 +78,7 @@ public class DisciplineService implements ICrudService<DisciplineDTO> {
 
     public void changeIsActivate(DisciplineDTO object, Boolean activate) throws Exception{
         try {
-            DisciplineModel discipline = repo.findById(object.id()).orElse(null);
+            DisciplineModel discipline = repo.findById(object.getId()).orElse(null);
             discipline.setIsActive(activate);
             repo.save(discipline);
         } catch (Exception e) {

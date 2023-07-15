@@ -5,15 +5,23 @@ import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.notax.notax_project.domain.enums.GradeIdentEnum;
 
-public record GradeDTO(
-    Long id,
-    Float grade,
-    StudentDTO student,
-    DisciplineDTO discipline,
-    PartialDTO partial,
-    Integer weight,
-    @JsonProperty("grade_identificator") GradeIdentEnum gradeIdentificator
-) {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class GradeDTO {
+    Long id;
+    Float grade;
+    StudentDTO student;
+    DisciplineDTO discipline;
+    PartialDTO partial;
+    Integer weight;
+    @JsonProperty("grade_identificator")
+    GradeIdentEnum gradeIdentificator;
+
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put(this.id.toString(), this.id);

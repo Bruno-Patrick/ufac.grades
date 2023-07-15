@@ -5,13 +5,21 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record GuardianDTO(
-    Long id,
-    String name,
-    String phone,
-    String email,
-    @JsonProperty("students") List<StudentDTO> studentsDTO
-) {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class GuardianDTO {
+    Long id;
+    String name;
+    String phone;
+    String email;
+    @JsonProperty("students")
+    List<StudentDTO> studentsDTO;
+
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put(this.id.toString(), this.id);

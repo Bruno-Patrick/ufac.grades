@@ -5,14 +5,23 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record StudentDTO(
-    Long id,
-    String name,
-    String phone,
-    String email,
-    @JsonProperty("disciplines") DisciplineDTO disciplinesDTO,
-    @JsonProperty("guardians") List<GuardianDTO> guardiansDTO
-) {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class StudentDTO {
+    Long id;
+    String name;
+    String phone;
+    String email;
+    @JsonProperty("disciplines")
+    DisciplineDTO disciplinesDTO;
+    @JsonProperty("guardians")
+    List<GuardianDTO> guardiansDTO;
+
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put(this.id.toString(), this.id);

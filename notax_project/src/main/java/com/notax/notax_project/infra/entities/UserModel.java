@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.notax.notax_project.application.DTO.UserDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +34,7 @@ public class UserModel implements Serializable {
     private String password;
 
     @Column(nullable = false)
-    private Date createTime;
+    private final long createTime = new Date().getTime();
 
     @Column(nullable = false)
     private String firstName;

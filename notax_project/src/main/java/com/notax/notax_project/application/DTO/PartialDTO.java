@@ -2,12 +2,19 @@ package com.notax.notax_project.application.DTO;
 
 import java.util.HashMap;
 
-public record PartialDTO(
-    Long id,
-    String title,
-    String description,
-    DisciplineDTO discipline
-) {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class PartialDTO {
+    Long id;
+    String title;
+    String description;
+    DisciplineDTO discipline;
+
    public HashMap<String, Object> toMap()  {
     HashMap<String, Object> map = new HashMap<>();
     map.put(this.id.toString(), this.id);
