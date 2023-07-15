@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -91,7 +90,6 @@ public class UserServiceTest {
     @Test
     public void shouldBeAbleToConvertAListOfUserModelInUserDTO() {
         when(repo.findAllByIsActiveTrue()).thenReturn(Arrays.asList(user, user2));
-
         try {
             UserService service = new UserService(repo, modelMapper);
             List<UserDTO> retrievedList = service.getAll();
