@@ -27,5 +27,42 @@
     </div>
 </mat-toolbar>
 <div id="align-center">
-    <app-divbox></app-divbox>
+    <div id="login-box">
+        <div class="login-align-center">
+            <span>
+                <p>Sign in to Grades</p>
+            </span>
+        </div>
+        <div>
+            <form action="submit" id="login-inputs">
+                <input
+                    type="email"
+                    name="email"
+                    id="input-email"
+                    placeholder="Type your email">
+                <input
+                    type="password"
+                    name="password"
+                    id="input-password"
+                    placeholder="Type your password">
+                <div id="button-submit">
+                    <button type="submit" id="form-submit">Let's go!</button>
+                </div>
+                <div id="other-texts">
+                    <span>
+                        <a href="#">Don't have account? Join now!</a>
+                        <a href="#">Forgot your password?</a>
+                    </span>
+                </div>
+                <div id="alternatives-login">
+                    <a href="#">
+                        <img src="../../../assets/svg/Google 1.svg" alt="Login with google">
+                    </a>
+                    <a href="#">
+                        <img src="../../../assets/svg/facebook logo-02 1.svg" alt="Login with facebook">
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
