@@ -2,19 +2,23 @@ package com.notax.notax_project.domain.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.application.DTO.DisciplineDTO;
 import com.notax.notax_project.application.DTO.FrequencyDTO;
 import com.notax.notax_project.application.DTO.StudentDTO;
+import com.notax.notax_project.domain.error.NotFoundException;
 import com.notax.notax_project.infra.entities.DisciplineModel;
 import com.notax.notax_project.infra.entities.FrequencyModel;
 import com.notax.notax_project.infra.entities.StudentModel;
 import com.notax.notax_project.infra.repository.FrequencyRepository;
 
+@Service
 public class FrequencyService implements ICrudService<FrequencyDTO> {
 
     private final FrequencyRepository repo;
@@ -30,27 +34,35 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
     public List<FrequencyDTO> getAll() throws Exception {
         try {
             List<FrequencyModel> frequencies = repo.findAll();
-            return frequencies.stream().map(
-                model -> modelMapper.map(
-                    model,
-                    FrequencyDTO.class
-                )
-            ).collect(Collectors.toList());
+            if (frequencies.size() != 0) {
+                return frequencies.stream().map(
+                    model -> modelMapper.map(
+                        model,
+                        FrequencyDTO.class
+                    )
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(frequencies.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-    public List<FrequencyDTO> getByDiscipline(DisciplineDTO discipline) {
+    public List<FrequencyDTO> getByDiscipline(DisciplineDTO discipline) throws Exception {
         try {
             List<FrequencyModel> frequencies = repo.findByDiscipline(
                 modelMapper.map(discipline,DisciplineModel.class)
             );
-            return frequencies.stream().map(
-                model -> modelMapper.map(
-                    model,FrequencyDTO.class)
-            ).collect(Collectors.toList());
+            if (frequencies.size() != 0) {
+                return frequencies.stream().map(
+                    model -> modelMapper.map(
+                        model,FrequencyDTO.class)
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(frequencies.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -60,16 +72,20 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
     public List<FrequencyDTO> getByDisciplineAndStudent(
         DisciplineDTO discipline,
         StudentDTO student
-        ) {
+        ) throws Exception {
         try {
             List<FrequencyModel> frequencies = repo.findByDisciplineAndStudent(
                 modelMapper.map(discipline,DisciplineModel.class),
                 modelMapper.map(student,StudentModel.class)
             );
-            return frequencies.stream().map(
-                model -> modelMapper.map(
-                    model,FrequencyDTO.class)
-            ).collect(Collectors.toList());
+            if (frequencies.size() != 0) {
+                return frequencies.stream().map(
+                    model -> modelMapper.map(
+                        model,FrequencyDTO.class)
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(frequencies.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -80,17 +96,21 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
         DisciplineDTO discipline,
         StudentDTO student,
         Date date
-        ) {
+        ) throws Exception {
         try {
-            FrequencyModel frequencie = repo.findByDisciplineAndStudentAndDate(
+            FrequencyModel frequency = repo.findByDisciplineAndStudentAndDate(
                 modelMapper.map(discipline,DisciplineModel.class),
                 modelMapper.map(student,StudentModel.class),
                 date
             );
-            return modelMapper.map(
-                frequencie,
-                FrequencyDTO.class
-            );
+            if (Objects.nonNull(frequency)) {
+                return modelMapper.map(
+                    frequency,
+                    FrequencyDTO.class
+                );
+            } else {
+                throw new NotFoundException(frequency.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -100,10 +120,15 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
     @Override
     public FrequencyDTO getById(Long id) throws Exception {
         try {
-            return modelMapper.map(
-                repo.findById(id),
-                FrequencyDTO.class
-            );
+            FrequencyModel frequency = repo.findById(id).orElse(null);
+            if (Objects.nonNull(frequency)) {
+                return modelMapper.map(
+                    frequency,
+                    FrequencyDTO.class
+                );
+            } else {
+                throw new NotFoundException(frequency.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

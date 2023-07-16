@@ -1,15 +1,19 @@
 package com.notax.notax_project.domain.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.application.DTO.GradeDTO;
+import com.notax.notax_project.domain.error.NotFoundException;
 import com.notax.notax_project.infra.entities.GradeModel;
 import com.notax.notax_project.infra.repository.GradeRepository;
 
+@Service
 public class GradeService implements ICrudService<GradeDTO> {
 
     private final GradeRepository repo;
@@ -25,9 +29,13 @@ public class GradeService implements ICrudService<GradeDTO> {
     public List<GradeDTO> getAll() throws Exception {
         try {
             List<GradeModel> grades = repo.findAll();
-            return grades.stream().map(
-                model -> modelmapper.map(model, GradeDTO.class)
-            ).collect(Collectors.toList());
+            if (grades.size() != 0) {
+                return grades.stream().map(
+                    model -> modelmapper.map(model, GradeDTO.class)
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(grades.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -37,7 +45,12 @@ public class GradeService implements ICrudService<GradeDTO> {
     @Override
     public GradeDTO getById(Long id) throws Exception {
         try {
-            return modelmapper.map(repo.findById(id), GradeDTO.class);
+            GradeModel grade = repo.findById(id).orElse(null);
+            if (Objects.nonNull(grade)) {
+                return modelmapper.map(grade, GradeDTO.class);
+            } else {
+                throw new NotFoundException(id.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

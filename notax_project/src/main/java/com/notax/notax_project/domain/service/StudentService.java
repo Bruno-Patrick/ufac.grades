@@ -1,6 +1,7 @@
 package com.notax.notax_project.domain.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.notax.notax_project.application.DTO.DisciplineDTO;
 import com.notax.notax_project.application.DTO.StudentDTO;
+import com.notax.notax_project.domain.error.NotFoundException;
 import com.notax.notax_project.infra.entities.DisciplineModel;
 import com.notax.notax_project.infra.entities.StudentModel;
 import com.notax.notax_project.infra.repository.StudentRepository;
@@ -30,9 +32,16 @@ public class StudentService implements ICrudService<StudentDTO> {
     public List<StudentDTO> getAll() throws Exception {
         try {
             List<StudentModel> students = repo.findAll();
-            return students.stream().map(
-                model -> modelmapper.map(model, StudentDTO.class)
-            ).collect(Collectors.toList());
+            if (students.size() != 0) {
+                return students.stream().map(
+                    model -> modelmapper.map(
+                        model,
+                        StudentDTO.class
+                    )
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException("users");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -42,10 +51,15 @@ public class StudentService implements ICrudService<StudentDTO> {
     @Override
     public StudentDTO getById(Long id) throws Exception {
         try {
-            return modelmapper.map(
-                repo.findById(id).orElse(null),
+            StudentModel user = repo.findById(id).orElse(null);
+            if (Objects.nonNull(user)) {
+               return modelmapper.map(
+                user,
                 StudentDTO.class
-            );
+               );
+            } else  {
+                throw new NotFoundException(id.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -56,9 +70,16 @@ public class StudentService implements ICrudService<StudentDTO> {
     public List<DisciplineDTO> getDisciplinesByStudentId(Long id) throws Exception {
         try {
             List<DisciplineModel> disciplines = repo.findById(id).orElse(null).getDisciplinesList();
-            return disciplines.stream().map(
-                model -> modelmapper.map(model, DisciplineDTO.class)
-            ).collect(Collectors.toList());
+            if (disciplines.size() != 0) {
+                return disciplines.stream().map(
+                    model -> modelmapper.map(
+                        model,
+                        DisciplineDTO.class
+                    )
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(disciplines.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -68,7 +89,10 @@ public class StudentService implements ICrudService<StudentDTO> {
     @Override
     public StudentDTO save(StudentDTO object) throws Exception {
         try {
-            repo.save(modelmapper.map(object,StudentModel.class));
+            repo.save(modelmapper.map(
+                object,
+                StudentModel.class
+            ));
             return object;
         } catch (Exception e) {
             e.printStackTrace();

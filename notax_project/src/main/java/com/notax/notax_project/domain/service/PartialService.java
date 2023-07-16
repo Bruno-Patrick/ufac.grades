@@ -1,15 +1,19 @@
 package com.notax.notax_project.domain.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.application.DTO.PartialDTO;
+import com.notax.notax_project.domain.error.NotFoundException;
 import com.notax.notax_project.infra.entities.PartialModel;
 import com.notax.notax_project.infra.repository.PartialRepository;
 
+@Service
 public class PartialService implements ICrudService<PartialDTO> {
 
     private final PartialRepository repo;
@@ -25,12 +29,16 @@ public class PartialService implements ICrudService<PartialDTO> {
     public List<PartialDTO> getAll() throws Exception {
         try {
             List<PartialModel> partials = repo.findAll();
-            return partials.stream().map(
-                model -> modelMapper.map(
-                    model,
-                    PartialDTO.class
-                )
-            ).collect(Collectors.toList());
+            if (partials.size() != 0) {
+                return partials.stream().map(
+                    model -> modelMapper.map(
+                        model,
+                        PartialDTO.class
+                    )
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(partials.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -40,10 +48,15 @@ public class PartialService implements ICrudService<PartialDTO> {
     @Override
     public PartialDTO getById(Long id) throws Exception {
         try {
-            return modelMapper.map(
-                repo.findById(id),
-                PartialDTO.class
-            );
+            PartialModel partial = repo.findById(id).orElse(null);
+            if (Objects.nonNull(partial)) {
+                return modelMapper.map(
+                    partial,
+                    PartialDTO.class
+                );
+            } else {
+                throw new NotFoundException(id.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -53,7 +66,10 @@ public class PartialService implements ICrudService<PartialDTO> {
     @Override
     public PartialDTO save(PartialDTO object) throws Exception {
         try {
-            repo.save(modelMapper.map(object,PartialModel.class));
+            repo.save(modelMapper.map(
+                object,
+                PartialModel.class
+            ));
             return object;
         } catch (Exception e) {
             e.printStackTrace();

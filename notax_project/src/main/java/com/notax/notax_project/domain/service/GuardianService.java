@@ -1,15 +1,19 @@
 package com.notax.notax_project.domain.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.application.DTO.GuardianDTO;
+import com.notax.notax_project.domain.error.NotFoundException;
 import com.notax.notax_project.infra.entities.GuardianModel;
 import com.notax.notax_project.infra.repository.GuardianRepository;
 
+@Service
 public class GuardianService implements ICrudService<GuardianDTO> {
 
     private final GuardianRepository repo;
@@ -28,11 +32,15 @@ public class GuardianService implements ICrudService<GuardianDTO> {
     public List<GuardianDTO> getAll() throws Exception {
         try {
             List<GuardianModel> guardians = repo.findAll();
-            return guardians.stream().map(
-                model -> modelMapper.map(
-                    model,
-                    GuardianDTO.class)
-            ).collect(Collectors.toList());
+            if (guardians.size() != 0) {
+                return guardians.stream().map(
+                    model -> modelMapper.map(
+                        model,
+                        GuardianDTO.class)
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(guardians.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -42,7 +50,12 @@ public class GuardianService implements ICrudService<GuardianDTO> {
     @Override
     public GuardianDTO getById(Long id) throws Exception {
         try {
-            return modelMapper.map(repo.findById(id), GuardianDTO.class);
+            GuardianModel guardian = repo.findById(id).orElse(null);
+            if (Objects.nonNull(guardian)) {
+                return modelMapper.map(guardian, GuardianDTO.class);
+            } else {
+                throw new NotFoundException(id.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
