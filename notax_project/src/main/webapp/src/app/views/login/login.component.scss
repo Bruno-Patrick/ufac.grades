@@ -1,0 +1,52 @@
+mat-toolbar.header {
+    background-color: #0D1117;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: 'Abel', sans-serif;
+    font-size: 17px;
+}
+
+#logo {
+ height: 43px;
+ width: 130px;
+}
+
+div.container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-top: 0.5em;
+}
+
+div.align-right {
+    justify-content: end;
+    width: max-content;
+    margin-right: 0.5em;
+}
+
+a.link {
+    text-decoration: none;
+    color: white;
+    margin-right: 0.5em;
+    transition: font-size 0.3s ease;
+
+}
+
+a.link:hover {
+    font-size: 19px;
+    color: #F1B8B8;
+}
+
+div.horizontal-line {
+    border: 1px solid #D2D2D2;
+    transform: rotate(90deg);
+    width: 39px;
+}
+
+div#align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
