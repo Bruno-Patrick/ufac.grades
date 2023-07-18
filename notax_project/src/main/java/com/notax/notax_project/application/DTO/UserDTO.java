@@ -19,7 +19,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class UserDTO {
+    @JsonProperty("id")
     Long id;
+    @JsonProperty("email")
     String email;
     @JsonProperty(access = Access.WRITE_ONLY)
     String password;
@@ -29,6 +31,7 @@ public class UserDTO {
     String firstName;
     @JsonProperty("last_name")
     String lastName;
+    @JsonProperty("phone")
     String phone;
     @JsonProperty("is_active")
     Boolean isActive;
@@ -40,7 +43,7 @@ public class UserDTO {
         map.put(this.id.toString(), this.id);
         map.put(this.email.toString(), this.email);
         map.put(this.password.toString(), this.password);
-        map.put("createTime", this.createTime);
+        map.put(this.createTime.toString(), this.createTime);
         map.put(this.firstName.toString(), this.firstName);
         map.put(this.lastName.toString(), this.lastName);
         map.put(this.phone.toString(), this.phone);

@@ -19,30 +19,33 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class DisciplineDTO {
+    @JsonProperty("id")
     Long id;
+    @JsonProperty("name")
     String name;
-    Integer year;
-    Integer semester;
+    @JsonProperty("description")
     String description;
+    @JsonProperty("organization")
+    private String organization;
     @JsonProperty(value = "create_time", access = Access.READ_ONLY) 
     LocalDateTime createTime;
     @JsonProperty(value = "is_active")
     Boolean isActive;
+    @JsonProperty("user_has_created_discipline")
     UserDTO user;
-    @JsonProperty("students")
-    List<StudentDTO> studentsList;
+    @JsonProperty("list_of_classes")
+    List<ClassDTO> classList;
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put(this.id.toString(), this.id);
         map.put(this.name.toString(), this.name);
-        map.put(this.year.toString(), this.year);
-        map.put(this.semester.toString(), this.semester);
         map.put(this.description.toString(), this.description);
+        map.put(this.organization.toString(), this.organization);
         map.put(this.createTime.toString(), this.createTime);
         map.put(this.isActive.toString(), this.isActive);
         map.put(this.user.toString(), this.user);
-        map.put(this.studentsList.toString(), this.studentsList);
+        map.put(this.classList.toString(), this.classList);
         return map;
     }
 }

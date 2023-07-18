@@ -9,12 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.notax.notax_project.application.DTO.DisciplineDTO;
 import com.notax.notax_project.application.DTO.FrequencyDTO;
 import com.notax.notax_project.application.DTO.StudentDTO;
 import com.notax.notax_project.domain.error.NotFoundException;
 import com.notax.notax_project.infra.entities.ClassModel;
-import com.notax.notax_project.infra.entities.DisciplineModel;
 import com.notax.notax_project.infra.entities.FrequencyModel;
 import com.notax.notax_project.infra.entities.StudentModel;
 import com.notax.notax_project.infra.repository.FrequencyRepository;
