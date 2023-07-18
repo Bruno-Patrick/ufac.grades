@@ -5,9 +5,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/bruno-patrick/ufac.grades?style=for-the-badge)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/bruno-patrick/ufac.grades?style=for-the-badge)
 
-<img src="logo.png" alt="logo">
-
-> **Ufac Grades** is a Java application under development to compose grade for Software Engineering II subject.
+<img src="logo.png" alt="logo"> is a Java application under development to compose grade for Software Engineering II subject.
 
 ### Epic links:
 
