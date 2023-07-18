@@ -26,3 +26,8 @@
 
 - [X] Sprint 01
 - - [X] Login Page View
+  - [ ] Entities
+  - [ ] Services
+  - [ ] DTOs
+  - [ ] Controllers
+- [ ] Sprint 02
