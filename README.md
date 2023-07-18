@@ -10,7 +10,7 @@
 ### Epic links:
 
 ![Trello link](https://img.shields.io/badge/Trello-194694?style=for-the-badge&logo=trello&logoColor=white)
-![Clique Aqui](https://trello.com/invite/b/luVQvJn4/ATTI12dbb1260b362fe20e9f01769b6491aaF06A2235/grades)
+[Clique Aqui](https://trello.com/invite/b/luVQvJn4/ATTI12dbb1260b362fe20e9f01769b6491aaF06A2235/grades)
 
 ###### [BACK-END](https://github.com/Bruno-Patrick/ufac.grades/tree/main/notax_project)
 
