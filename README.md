@@ -4,10 +4,9 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/bruno-patrick/ufac.grades?style=for-the-badge)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/bruno-patrick/ufac.grades?style=for-the-badge)
 
+<br/><br/>
 <img src="logo.png" alt="logo"> is a Java application under development to compose grade for Software Engineering II subject.
-
-
-
+<br/><br/>
 ### Epic links:
 
 ![Trello link](https://img.shields.io/badge/Trello-194694?style=for-the-badge&logo=trello&logoColor=white)
