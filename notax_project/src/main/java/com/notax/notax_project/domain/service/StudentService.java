@@ -66,26 +66,6 @@ public class StudentService implements ICrudService<StudentDTO> {
         }
     }
 
-    @Transactional
-    public List<DisciplineDTO> getDisciplinesByStudentId(Long id) throws Exception {
-        try {
-            List<DisciplineModel> disciplines = repo.findById(id).orElse(null).getDisciplinesList();
-            if (disciplines.size() != 0) {
-                return disciplines.stream().map(
-                    model -> modelmapper.map(
-                        model,
-                        DisciplineDTO.class
-                    )
-                ).collect(Collectors.toList());
-            } else {
-                throw new NotFoundException(disciplines.toString());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
     @Override
     public StudentDTO save(StudentDTO object) throws Exception {
         try {

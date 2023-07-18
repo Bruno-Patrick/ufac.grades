@@ -1,25 +1,30 @@
 package com.notax.notax_project.application.DTO;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDTO {
     Long id;
     String email;
     @JsonProperty(access = Access.WRITE_ONLY)
     String password;
     @JsonProperty("create_time")
-    long createTime;
+    LocalDateTime createTime;
     @JsonProperty("first_name")
     String firstName;
     @JsonProperty("last_name")

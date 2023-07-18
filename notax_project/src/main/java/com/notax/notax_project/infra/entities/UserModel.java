@@ -1,6 +1,7 @@
 package com.notax.notax_project.infra.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,7 +33,7 @@ public class UserModel implements Serializable {
     private String password;
 
     @Column(nullable = false)
-    private final long createTime = new Date().getTime();
+    private final LocalDateTime createTime = LocalDateTime.now();
 
     @Column(nullable = false)
     private String firstName;

@@ -13,6 +13,7 @@ import com.notax.notax_project.application.DTO.DisciplineDTO;
 import com.notax.notax_project.application.DTO.FrequencyDTO;
 import com.notax.notax_project.application.DTO.StudentDTO;
 import com.notax.notax_project.domain.error.NotFoundException;
+import com.notax.notax_project.infra.entities.ClassModel;
 import com.notax.notax_project.infra.entities.DisciplineModel;
 import com.notax.notax_project.infra.entities.FrequencyModel;
 import com.notax.notax_project.infra.entities.StudentModel;
@@ -50,10 +51,10 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
         }
     }
 
-    public List<FrequencyDTO> getByDiscipline(DisciplineDTO discipline) throws Exception {
+    public List<FrequencyDTO> getByDiscipline(ClassModel studentClass) throws Exception {
         try {
-            List<FrequencyModel> frequencies = repo.findByDiscipline(
-                modelMapper.map(discipline,DisciplineModel.class)
+            List<FrequencyModel> frequencies = repo.findByStudentClass(
+                modelMapper.map(studentClass,ClassModel.class)
             );
             if (frequencies.size() != 0) {
                 return frequencies.stream().map(
@@ -70,12 +71,12 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
     }
 
     public List<FrequencyDTO> getByDisciplineAndStudent(
-        DisciplineDTO discipline,
+        ClassModel studentClass,
         StudentDTO student
         ) throws Exception {
         try {
-            List<FrequencyModel> frequencies = repo.findByDisciplineAndStudent(
-                modelMapper.map(discipline,DisciplineModel.class),
+            List<FrequencyModel> frequencies = repo.findByStudentClassAndStudent(
+                modelMapper.map(studentClass,ClassModel.class),
                 modelMapper.map(student,StudentModel.class)
             );
             if (frequencies.size() != 0) {
@@ -93,13 +94,13 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
     }
 
     public FrequencyDTO getByDisciplineAndStudentAndDate(
-        DisciplineDTO discipline,
+        ClassModel studentClass,
         StudentDTO student,
         Date date
         ) throws Exception {
         try {
-            FrequencyModel frequency = repo.findByDisciplineAndStudentAndDate(
-                modelMapper.map(discipline,DisciplineModel.class),
+            FrequencyModel frequency = repo.findByStudentClassAndStudentAndDate(
+                modelMapper.map(studentClass,ClassModel.class),
                 modelMapper.map(student,StudentModel.class),
                 date
             );

@@ -33,5 +33,5 @@ public class FrequencyModel {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private DisciplineModel discipline;
+    private ClassModel studentClass;
 }

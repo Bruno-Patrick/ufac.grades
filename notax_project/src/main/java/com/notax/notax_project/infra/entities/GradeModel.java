@@ -2,7 +2,7 @@ package com.notax.notax_project.infra.entities;
 
 import java.io.Serializable;
 
-import com.notax.notax_project.domain.enums.GradeIdentEnum;
+import com.notax.notax_project.infra.enums.GradeIdentEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

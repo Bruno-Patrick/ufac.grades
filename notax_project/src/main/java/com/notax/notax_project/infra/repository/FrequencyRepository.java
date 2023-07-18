@@ -6,19 +6,20 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.notax.notax_project.infra.entities.ClassModel;
 import com.notax.notax_project.infra.entities.DisciplineModel;
 import com.notax.notax_project.infra.entities.FrequencyModel;
 import com.notax.notax_project.infra.entities.StudentModel;
 
 @Repository
 public interface FrequencyRepository extends JpaRepository<FrequencyModel, Long> {
-    List<FrequencyModel> findByDiscipline(DisciplineModel discipline);
-    List<FrequencyModel> findByDisciplineAndStudent(
-        DisciplineModel discipline,
+    List<FrequencyModel> findByStudentClass(ClassModel studentClass);
+    List<FrequencyModel> findByStudentClassAndStudent(
+        ClassModel studentClass,
         StudentModel student
     );
-    FrequencyModel findByDisciplineAndStudentAndDate(
-        DisciplineModel discipline,
+    FrequencyModel findByStudentClassAndStudentAndDate(
+        ClassModel studentClass,
         StudentModel student,
         Date date
     );

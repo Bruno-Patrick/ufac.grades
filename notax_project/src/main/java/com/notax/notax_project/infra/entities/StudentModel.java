@@ -36,7 +36,10 @@ public class StudentModel implements Serializable {
     private String email;
 
     @OneToMany(mappedBy = "studentsList")
-    private List<DisciplineModel> disciplinesList;
+    private List<ClassModel> disciplinesList;
+    
+    @OneToMany(mappedBy = "studentsList")
+    private List<ClassModel> classModel;
 
     @OneToMany
     @JoinTable(
@@ -52,7 +55,4 @@ public class StudentModel implements Serializable {
     )
     @JoinColumn(nullable = true)
     private List<GuardianModel> guardiansList;
-
-    @OneToMany(mappedBy = "student")
-    private List<FrequencyModel> frequencies;
 }

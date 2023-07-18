@@ -3,6 +3,8 @@ package com.notax.notax_project.application.DTO;
 import java.util.Date;
 import java.util.HashMap;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class FrequencyDTO {
     Long id;
     DisciplineDTO discipline;

@@ -1,11 +1,14 @@
 package com.notax.notax_project.application.DTO;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class DisciplineDTO {
     Long id;
     String name;
@@ -20,7 +25,7 @@ public class DisciplineDTO {
     Integer semester;
     String description;
     @JsonProperty(value = "create_time", access = Access.READ_ONLY) 
-    Long createTime;
+    LocalDateTime createTime;
     @JsonProperty(value = "is_active")
     Boolean isActive;
     UserDTO user;

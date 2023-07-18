@@ -13,48 +13,50 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "discipline")
-public class DisciplineModel implements Serializable {
-    
+@AllArgsConstructor
+@Builder
+public class ClassModel implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Column(updatable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = true)
+    private Integer year;
+
+    @Column(nullable = true)
+    private Integer semester;
 
     @Column(nullable = true)
     private String description;
 
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false, nullable = false)
     private final LocalDateTime createTime = LocalDateTime.now();
-
-    @Column(nullable = false)
-    private Boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private UserModel user;
+    private DisciplineModel discipline;
 
     @OneToMany
     @JoinTable(
-        name = "discipline_class",
+        name = "class_student",
         joinColumns = @JoinColumn(
-            name = "discipline",
+            name = "class",
             nullable = false
         ),
         inverseJoinColumns = @JoinColumn(
-            name = "class",
+            name = "student",
             nullable = false
         )
     )
-    private List<ClassModel> classList;
+    private List<StudentModel> studentsList;
 }

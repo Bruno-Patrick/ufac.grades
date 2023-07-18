@@ -1,4 +1,4 @@
-package com.notax.notax_project.domain.enums;
+package com.notax.notax_project.infra.enums;
 
 public enum GradeIdentEnum {
     isPartial,

@@ -3,7 +3,7 @@ package com.notax.notax_project.application.DTO;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.notax.notax_project.domain.enums.GradeIdentEnum;
+import com.notax.notax_project.infra.enums.GradeIdentEnum;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
