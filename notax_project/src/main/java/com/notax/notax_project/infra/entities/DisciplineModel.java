@@ -14,11 +14,17 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "discipline")
 public class DisciplineModel implements Serializable {
@@ -34,10 +40,14 @@ public class DisciplineModel implements Serializable {
     @Column(nullable = true)
     private String description;
 
+    @Column(nullable = true)
+    private String organization;
+
     @Column(nullable = false, updatable = false)
     private final LocalDateTime createTime = LocalDateTime.now();
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean isActive = true;
 
     @ManyToOne
@@ -56,5 +66,6 @@ public class DisciplineModel implements Serializable {
             nullable = false
         )
     )
+    @JoinColumn(nullable = false)
     private List<ClassModel> classList;
 }

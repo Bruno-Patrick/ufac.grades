@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.notax.notax_project.infra.enums.ClassIdentEnum;
+import com.notax.notax_project.infra.enums.OrdinalsEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,12 +19,14 @@ import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class ClassModel implements Serializable {
 
@@ -30,11 +35,14 @@ public class ClassModel implements Serializable {
     @Column(updatable = false)
     private Long id;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Integer year;
 
-    @Column(nullable = true)
-    private Integer semester;
+    @Column(nullable = false)
+    private ClassIdentEnum classIdent;
+
+    @Column(nullable = false)
+    private OrdinalsEnum classIdentOrdinal;
 
     @Column(nullable = true)
     private String description;
