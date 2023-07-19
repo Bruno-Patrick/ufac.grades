@@ -14,8 +14,9 @@ import com.notax.notax_project.infra.entities.StudentModel;
 public interface GuardianRepository extends JpaRepository<GuardianModel, Long> {
     
     @Query(
-        "SELECT gr FROM GuardianModel gr WHERE gr.name LIKE :searchTerm "+
-        "OR gr.phone LIKE :searchTerm "+
+        "SELECT gr FROM GuardianModel gr " +
+        "WHERE gr.name LIKE :searchTerm " +
+        "OR gr.phone LIKE :searchTerm " +
         "OR gr.email like :searchTerm"
     )
     List<GuardianModel> findByNameOrPhoneOrEmail(@Param("searchTerm") String searchTerm);

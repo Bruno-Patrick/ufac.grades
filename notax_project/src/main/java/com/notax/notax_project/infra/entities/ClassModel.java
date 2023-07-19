@@ -54,6 +54,10 @@ public class ClassModel implements Serializable {
     @JoinColumn(nullable = false)
     private DisciplineModel discipline;
 
+    @JoinColumn(nullable = false)
+    @Builder.Default
+    private Boolean isActive = true;
+
     @OneToMany
     @JoinTable(
         name = "class_student",

@@ -36,19 +36,16 @@ public class UserModel implements Serializable {
     private String email;
     
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = true)
+    private String phone;
+
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     private final LocalDateTime createTime = LocalDateTime.now();
-
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = true)
-    private String phone;
 
     @Column(nullable = false)
     @Builder.Default
