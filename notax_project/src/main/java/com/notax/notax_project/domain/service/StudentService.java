@@ -37,7 +37,26 @@ public class StudentService implements ICrudService<StudentDTO> {
                     )
                 ).collect(Collectors.toList());
             } else {
-                throw new NotFoundException("users");
+                throw new NotFoundException("","Not found any user");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public List<StudentDTO> findBySearchTerm(String searchTerm) throws Exception {
+        try {
+            List<StudentModel> students = repo.findBySearchTerm(searchTerm);
+            if (students.size() != 0) {
+                return students.stream().map(
+                    model -> modelmapper.map(
+                        model,
+                        StudentDTO.class
+                    )
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(searchTerm,"Not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +74,7 @@ public class StudentService implements ICrudService<StudentDTO> {
                 StudentDTO.class
                );
             } else  {
-                throw new NotFoundException(id.toString());
+                throw new NotFoundException(id.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();

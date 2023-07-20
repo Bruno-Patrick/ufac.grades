@@ -17,5 +17,5 @@ public interface StudentRepository extends JpaRepository<StudentModel, Long> {
         "OR s.phone LIKE :searchTerm " +
         "OR s.email LIKE :searchTerm"
     )
-    List<StudentRepository> findBySearchTerm(@Param("searchTerm") String searchTerm);
+    List<StudentModel> findBySearchTerm(@Param("searchTerm") String searchTerm);
 }

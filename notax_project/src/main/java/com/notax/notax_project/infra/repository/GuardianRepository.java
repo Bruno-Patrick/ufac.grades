@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.notax.notax_project.infra.entities.GuardianModel;
-import com.notax.notax_project.infra.entities.StudentModel;
 
 @Repository
 public interface GuardianRepository extends JpaRepository<GuardianModel, Long> {
@@ -17,8 +16,7 @@ public interface GuardianRepository extends JpaRepository<GuardianModel, Long> {
         "SELECT gr FROM GuardianModel gr " +
         "WHERE gr.name LIKE :searchTerm " +
         "OR gr.phone LIKE :searchTerm " +
-        "OR gr.email like :searchTerm"
+        "OR gr.email LIKE :searchTerm"
     )
-    List<GuardianModel> findByNameOrPhoneOrEmail(@Param("searchTerm") String searchTerm);
-    List<GuardianModel> findAllByStudentsList(StudentModel students);
+    List<GuardianModel> findBySearchTerm(@Param("searchTerm") String searchTerm);
 }

@@ -37,7 +37,7 @@ public class UserService implements ICrudService<UserDTO> {
                             )
                         ).collect(Collectors.toList());
                 } else {
-                    throw new NotFoundException("Users");
+                    throw new NotFoundException("","Don't found any user");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,14 +47,14 @@ public class UserService implements ICrudService<UserDTO> {
 
     public UserDTO getByEmail(String email) throws Exception {
         try {
-            UserModel user = repo.findByEmailAndIsActiveTrue(email);
+            UserModel user = repo.findByEmail(email);
             if (Objects.nonNull(user)) {
                 return modelMapper.map(
                     user,
                     UserDTO.class
                 );
             } else {
-                throw new NotFoundException(email);
+                throw new NotFoundException(email, "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,9 +62,9 @@ public class UserService implements ICrudService<UserDTO> {
         }
     }
 
-    public List<UserDTO> getAllByFirstNameAndLastName(String firtName, String lastName) throws Exception {
+    public List<UserDTO> getBySearchTerm(String searchTerm) throws Exception {
         try {
-            List<UserModel> users = repo.findAllByFirstNameAndLastNameAndIsActiveTrue(firtName, lastName);
+            List<UserModel> users = repo.findBySearchTerm(searchTerm);
             if (users.size() != 0) {
                 return users.stream().map(user -> modelMapper.map(
                         user,
@@ -72,7 +72,7 @@ public class UserService implements ICrudService<UserDTO> {
                     )
                 ).collect(Collectors.toList());
             } else {
-                throw new NotFoundException(firtName + " " + lastName);
+                throw new NotFoundException(searchTerm, "nothing has finded");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class UserService implements ICrudService<UserDTO> {
             if (Objects.nonNull(user)) {
                 return modelMapper.map(user, UserDTO.class);
             } else {
-                throw new NotFoundException(id.toString());
+                throw new NotFoundException(id.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class UserService implements ICrudService<UserDTO> {
                 user.setIsActive(activate);
                 repo.save(user);
             } else {
-                throw new NotFoundException(id.toString());
+                throw new NotFoundException(id.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.application.DTO.GuardianDTO;
+import com.notax.notax_project.application.DTO.StudentDTO;
 import com.notax.notax_project.domain.error.NotFoundException;
 import com.notax.notax_project.infra.entities.GuardianModel;
+import com.notax.notax_project.infra.entities.StudentModel;
 import com.notax.notax_project.infra.repository.GuardianRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class GuardianService implements ICrudService<GuardianDTO> {
@@ -39,7 +43,45 @@ public class GuardianService implements ICrudService<GuardianDTO> {
                         GuardianDTO.class)
                 ).collect(Collectors.toList());
             } else {
-                throw new NotFoundException(guardians.toString());
+                throw new NotFoundException(guardians.toString(), "not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public List<GuardianDTO> getBySeatchTerm(String searchTerm) throws Exception {
+        try {
+            List<GuardianModel> guardians = repo.findBySearchTerm(searchTerm);
+            if (guardians.size() != 0) {
+                return guardians.stream().map(
+                    model -> modelMapper.map(
+                        model,
+                        GuardianDTO.class)
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(guardians.toString(), "not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+        
+    @Transactional
+    public List<StudentDTO> getStudentsOfGuard(Long id) throws Exception {
+        try {
+            GuardianModel guardian = repo.findById(id).orElse(null);
+            List<StudentModel> students = guardian.getStudentsList();
+            if (students.size() != 0) {
+                return students.stream().map(
+                    model -> modelMapper.map(
+                        model,
+                        StudentDTO.class)
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(students.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +96,7 @@ public class GuardianService implements ICrudService<GuardianDTO> {
             if (Objects.nonNull(guardian)) {
                 return modelMapper.map(guardian, GuardianDTO.class);
             } else {
-                throw new NotFoundException(id.toString());
+                throw new NotFoundException(id.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();

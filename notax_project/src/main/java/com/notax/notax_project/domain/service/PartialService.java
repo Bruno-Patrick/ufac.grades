@@ -37,7 +37,26 @@ public class PartialService implements ICrudService<PartialDTO> {
                     )
                 ).collect(Collectors.toList());
             } else {
-                throw new NotFoundException(partials.toString());
+                throw new NotFoundException(partials.toString(), "not found");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    List<PartialDTO> findBySearchTerm(String searchTerm) throws Exception {
+        try {
+            List<PartialModel> partials = repo.findBySearchTerm(searchTerm);
+            if (partials.size() != 0) {
+                return partials.stream().map(
+                    model -> modelMapper.map(
+                        model,
+                        PartialDTO.class
+                    )
+                ).collect(Collectors.toList());
+            } else {
+                throw new NotFoundException(partials.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +74,7 @@ public class PartialService implements ICrudService<PartialDTO> {
                     PartialDTO.class
                 );
             } else {
-                throw new NotFoundException(id.toString());
+                throw new NotFoundException(id.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
