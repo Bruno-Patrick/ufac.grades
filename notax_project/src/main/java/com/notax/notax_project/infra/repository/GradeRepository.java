@@ -27,7 +27,7 @@ public interface GradeRepository extends  JpaRepository<GradeModel, Long> {
         @Param("partial") PartialModel partial
     );
 
-    List<GradeModel> findByStudentAndScholarClass(
+    List<GradeModel> findByStudentAndClass(
         StudentModel student,
         ClassModel scholarClass
     );

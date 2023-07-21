@@ -9,8 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.notax.notax_project.application.DTO.ClassDTO;
 import com.notax.notax_project.application.DTO.FrequencyDTO;
 import com.notax.notax_project.application.DTO.StudentDTO;
+import com.notax.notax_project.domain.Utils;
 import com.notax.notax_project.domain.error.NotFoundException;
 import com.notax.notax_project.infra.entities.ClassModel;
 import com.notax.notax_project.infra.entities.FrequencyModel;
@@ -22,6 +24,7 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
 
     private final FrequencyRepository repo;
     private final ModelMapper modelMapper;
+    private Utils utils = new Utils();
 
     @Autowired
     public FrequencyService(FrequencyRepository repo, ModelMapper modelMapper) {
@@ -41,7 +44,7 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
                     )
                 ).collect(Collectors.toList());
             } else {
-                throw new NotFoundException(frequencies.toString());
+                throw new NotFoundException(frequencies.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,18 +52,17 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
         }
     }
 
-    public List<FrequencyDTO> getByDiscipline(ClassModel studentClass) throws Exception {
+    public List<FrequencyDTO> getByScholarClass(ClassDTO studentClass) throws Exception {
         try {
-            List<FrequencyModel> frequencies = repo.findByStudentClass(
-                modelMapper.map(studentClass,ClassModel.class)
-            );
+            ClassModel classModel = utils.converter(studentClass, ClassModel.class);
+            List<FrequencyModel> frequencies = repo.findByScholarClass(classModel);
             if (frequencies.size() != 0) {
                 return frequencies.stream().map(
                     model -> modelMapper.map(
                         model,FrequencyDTO.class)
                 ).collect(Collectors.toList());
             } else {
-                throw new NotFoundException(frequencies.toString());
+                throw new NotFoundException(frequencies.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,12 +70,12 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
         }
     }
 
-    public List<FrequencyDTO> getByDisciplineAndStudent(
+    public List<FrequencyDTO> getByScholarClassAndStudent(
         ClassModel studentClass,
         StudentDTO student
         ) throws Exception {
         try {
-            List<FrequencyModel> frequencies = repo.findByStudentClassAndStudent(
+            List<FrequencyModel> frequencies = repo.findByScholarClassAndStudent(
                 modelMapper.map(studentClass,ClassModel.class),
                 modelMapper.map(student,StudentModel.class)
             );
@@ -83,7 +85,7 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
                         model,FrequencyDTO.class)
                 ).collect(Collectors.toList());
             } else {
-                throw new NotFoundException(frequencies.toString());
+                throw new NotFoundException(frequencies.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,13 +93,13 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
         }
     }
 
-    public FrequencyDTO getByDisciplineAndStudentAndDate(
+    public FrequencyDTO getByScholarAndStudentAndDate(
         ClassModel studentClass,
         StudentDTO student,
         Date date
         ) throws Exception {
         try {
-            FrequencyModel frequency = repo.findByStudentClassAndStudentAndDate(
+            FrequencyModel frequency = repo.findByScholarClassAndStudentAndDate(
                 modelMapper.map(studentClass,ClassModel.class),
                 modelMapper.map(student,StudentModel.class),
                 date
@@ -108,7 +110,7 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
                     FrequencyDTO.class
                 );
             } else {
-                throw new NotFoundException(frequency.toString());
+                throw new NotFoundException(frequency.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,7 +128,7 @@ public class FrequencyService implements ICrudService<FrequencyDTO> {
                     FrequencyDTO.class
                 );
             } else {
-                throw new NotFoundException(frequency.toString());
+                throw new NotFoundException(frequency.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();

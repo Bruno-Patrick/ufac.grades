@@ -8,8 +8,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.notax.notax_project.application.DTO.ClassDTO;
 import com.notax.notax_project.application.DTO.DisciplineDTO;
+import com.notax.notax_project.domain.Utils;
 import com.notax.notax_project.domain.error.NotFoundException;
+import com.notax.notax_project.infra.entities.ClassModel;
 import com.notax.notax_project.infra.entities.DisciplineModel;
 import com.notax.notax_project.infra.repository.DisciplineRepository;
 
@@ -18,6 +21,7 @@ public class DisciplineService implements ICrudService<DisciplineDTO> {
 
     private final DisciplineRepository repo;
     private final ModelMapper modelMapper;
+    private Utils utils = new Utils();
 
     @Autowired
     public DisciplineService(DisciplineRepository repo, ModelMapper modelMapper) {
@@ -37,8 +41,39 @@ public class DisciplineService implements ICrudService<DisciplineDTO> {
                     )
                 ).collect(Collectors.toList());
             } else {
-                throw new NotFoundException(disciplines.toString());
+                throw new NotFoundException(disciplines.toString(), "not found");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+        
+    public List<DisciplineDTO> getBySearchTermAndIsActiveTrue(String searchTerm)
+        throws Exception {
+        try {
+            List<DisciplineModel> disciplines = repo.findBySearchTerm(searchTerm, true);
+            return utils.converterListOfObjects(
+                disciplines,
+                DisciplineDTO.class
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public List<ClassDTO> getScholarClassesOfDiscipline(Long id, Boolean bool)
+        throws Exception {
+        try {
+            List<ClassModel> classes = repo.findAllClassesByDiscipline(
+                id,
+                true
+            );
+            return utils.converterListOfObjects(
+                classes,
+                ClassDTO.class
+            );
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -52,7 +87,7 @@ public class DisciplineService implements ICrudService<DisciplineDTO> {
             if (Objects.nonNull(discipline)) {
                 return modelMapper.map(discipline, DisciplineDTO.class);
             } else {
-                throw new NotFoundException(discipline.toString());
+                throw new NotFoundException(discipline.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +113,7 @@ public class DisciplineService implements ICrudService<DisciplineDTO> {
                 discipline.setIsActive(activate);
                 repo.save(discipline);
             } else {
-                throw new NotFoundException(discipline.toString());
+                throw new NotFoundException(discipline.toString(), "not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
