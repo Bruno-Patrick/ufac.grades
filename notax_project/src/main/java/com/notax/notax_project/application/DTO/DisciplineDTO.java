@@ -38,14 +38,14 @@ public class DisciplineDTO {
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(this.id.toString(), this.id);
-        map.put(this.name.toString(), this.name);
-        map.put(this.description.toString(), this.description);
-        map.put(this.organization.toString(), this.organization);
-        map.put(this.createTime.toString(), this.createTime);
-        map.put(this.isActive.toString(), this.isActive);
-        map.put(this.user.toString(), this.user);
-        map.put(this.classList.toString(), this.classList);
+        map.put("id", this.id);
+        map.put("name", this.name);
+        map.put("description", this.description);
+        map.put("organization", this.organization);
+        map.put("createTime", this.createTime);
+        map.put("isActive", this.isActive);
+        map.put("user", this.user);
+        map.put("classList", this.classList);
         return map;
     }
 }

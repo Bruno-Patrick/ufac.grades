@@ -34,13 +34,13 @@ public class GradeDTO {
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(this.id.toString(), this.id);
-        map.put(this.grade.toString(), this.grade);
-        map.put(this.student.toString(), this.student);
-        map.put(this.classDTO.toString(), this.classDTO);
-        map.put(this.partial.toString(), this.partial);
-        map.put(this.weight.toString(), this.weight);
-        map.put(this.gradeIdentificator.toString(), this.gradeIdentificator);
+        map.put("id", this.id);
+        map.put("grade", this.grade);
+        map.put("student", this.student);
+        map.put("classDTO", this.classDTO);
+        map.put("partial", this.partial);
+        map.put("weight", this.weight);
+        map.put("gradeIdentificator", this.gradeIdentificator);
         return map;
     }
 }

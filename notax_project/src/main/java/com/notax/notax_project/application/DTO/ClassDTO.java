@@ -37,14 +37,14 @@ public class ClassDTO {
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(id.toString(), this.id);
-        map.put(year.toString(), this.year);
-        map.put(classIdent.toString(), this.classIdent);
-        map.put(classIdentOrdinal.toString(), this.classIdentOrdinal);
-        map.put(description.toString(), this.description);
-        map.put(createTime.toString(), this.createTime);
-        map.put(discipline.toString(), this.discipline);
-        map.put(studentList.toString(), this.studentList);
+        map.put("id", this.id);
+        map.put("year", this.year);
+        map.put("classIdent", this.classIdent);
+        map.put("classIdentOrdinal", this.classIdentOrdinal);
+        map.put("description", this.description);
+        map.put("createTime", this.createTime);
+        map.put("discipline", this.discipline);
+        map.put("studentList", this.studentList);
         return map;
     }
 }

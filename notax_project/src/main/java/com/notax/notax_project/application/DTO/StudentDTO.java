@@ -32,12 +32,12 @@ public class StudentDTO {
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(this.id.toString(), this.id);
-        map.put(this.name.toString(), this.name);
-        map.put(this.phone.toString(), this.phone);
-        map.put(this.email.toString(), this.email);
-        map.put(this.classList.toString(), this.classList);
-        map.put(this.guardiansList.toString(), this.guardiansList);
+        map.put("id", this.id);
+        map.put("name", this.name);
+        map.put("phone", this.phone);
+        map.put("email", this.email);
+        map.put("classList", this.classList);
+        map.put("guardiansList", this.guardiansList);
         return map;
     }   
 } 

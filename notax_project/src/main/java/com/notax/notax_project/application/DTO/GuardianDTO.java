@@ -30,11 +30,11 @@ public class GuardianDTO {
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(this.id.toString(), this.id);
-        map.put(this.name.toString(), this.name);
-        map.put(this.phone.toString(), this.phone);
-        map.put(this.email.toString(), this.email);
-        map.put(this.studentsDTO.toString(), this.studentsDTO);
+        map.put("id", this.id);
+        map.put("name", this.name);
+        map.put("phone", this.phone);
+        map.put("email", this.email);
+        map.put("studentsDTO", this.studentsDTO);
         return map;
     }
 }

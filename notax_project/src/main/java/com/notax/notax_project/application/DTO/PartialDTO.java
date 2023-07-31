@@ -27,10 +27,10 @@ public class PartialDTO {
 
    public HashMap<String, Object> toMap()  {
     HashMap<String, Object> map = new HashMap<>();
-    map.put(this.id.toString(), this.id);
-    map.put(this.title.toString(), this.title);
-    map.put(this.description.toString(), this.description);
-    map.put(this.classDTO.toString(), this.classDTO);
+    map.put("id", this.id);
+    map.put("title", this.title);
+    map.put("description", this.description);
+    map.put("classDTO", this.classDTO);
     return map;
    }
 }

@@ -28,10 +28,10 @@ public class FrequencyDTO {
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(this.id.toString(), this.id);
-        map.put(this.date.toString(), this.date);
-        map.put(this.student.toString(), this.student);
-        map.put(this.classDTO.toString(), this.classDTO);
+        map.put("id", this.id);
+        map.put("date", this.date);
+        map.put("student", this.student);
+        map.put("classDTO", this.classDTO);
         return map;
     }
 }

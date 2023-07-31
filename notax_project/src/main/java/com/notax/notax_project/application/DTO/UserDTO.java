@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.notax.notax_project.domain.entities.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,10 +28,8 @@ public class UserDTO {
     String password;
     @JsonProperty("create_time")
     LocalDateTime createTime;
-    @JsonProperty("first_name")
-    String firstName;
-    @JsonProperty("last_name")
-    String lastName;
+    @JsonProperty("name")
+    String name;
     @JsonProperty("phone")
     String phone;
     @JsonProperty("is_active")
@@ -40,15 +39,28 @@ public class UserDTO {
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(this.id.toString(), this.id);
-        map.put(this.email.toString(), this.email);
-        map.put(this.password.toString(), this.password);
-        map.put(this.createTime.toString(), this.createTime);
-        map.put(this.firstName.toString(), this.firstName);
-        map.put(this.lastName.toString(), this.lastName);
-        map.put(this.phone.toString(), this.phone);
-        map.put(this.isActive.toString(), this.isActive);
-        map.put(this.birthDate.toString(), this.birthDate);
+        map.put("id", this.id);
+        map.put("email", this.email);
+        map.put("password", this.password);
+        map.put("createTime", this.createTime);
+        map.put("name", this.name);
+        map.put("phone", this.phone);
+        map.put("isActive", this.isActive);
+        map.put("birthDate", this.birthDate);
         return map;
+    }
+
+    public User toEntity() {
+        return User
+            .builder()
+            .id(this.id)
+            .email(this.email)
+            .name(this.name)
+            .phone(this.phone)
+            .password(this.password)
+            .createTime(this.createTime)
+            .isActive(this.isActive)
+            .birthDate(this.birthDate)
+            .build();
     }
 }
