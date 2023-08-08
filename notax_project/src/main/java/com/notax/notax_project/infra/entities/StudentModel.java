@@ -3,6 +3,8 @@ package com.notax.notax_project.infra.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.notax.notax_project.domain.entities.Student;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -61,4 +63,17 @@ public class StudentModel implements Serializable {
     )
     @JoinColumn(nullable = true)
     private List<GuardianModel> guardiansList;
+
+    public Student toEntity() {
+        return Student
+            .builder()
+            .id(id)
+            .name(name)
+            .phone(phone)
+            .email(email)
+            .disciplinesList(disciplinesList)
+            .classModel(classModel)
+            .guardiansList(guardiansList)
+            .build();
+    }
 }

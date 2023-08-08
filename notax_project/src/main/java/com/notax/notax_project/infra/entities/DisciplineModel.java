@@ -28,12 +28,40 @@ import lombok.Setter;
 @Entity
 @Table(name = "discipline")
 public class DisciplineModel implements Serializable {
+    public enum Periodicity {
+        MONTHLY,
+        BIMONTHLY,
+        TRIMONTHLY,
+        QUADRIMONTHLY,
+        SEMESTERLY
+    }
+
+    public enum Ordinals {
+        TH_1,
+        TH_2,
+        TH_3,
+        TH_4,
+        TH_5,
+        TH_6,
+        TH_7,
+        TH_8,
+        TH_9,
+        TH_10,
+        TH_11,
+        TH_12
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
 
+    @Column(nullable = false)
+    private DisciplineModel.Periodicity periodicity;
+
+    @Column(nullable = false)
+    private DisciplineModel.Ordinals ordinal;
+    
     @Column(nullable = false)
     private String name;
 

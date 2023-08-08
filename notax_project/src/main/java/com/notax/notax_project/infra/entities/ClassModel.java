@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.notax.notax_project.infra.enums.ClassIdentEnum;
-import com.notax.notax_project.infra.enums.OrdinalsEnum;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,12 +34,6 @@ public class ClassModel implements Serializable {
 
     @Column(nullable = false)
     private Integer year;
-
-    @Column(nullable = false)
-    private ClassIdentEnum classIdent;
-
-    @Column(nullable = false)
-    private OrdinalsEnum classIdentOrdinal;
 
     @Column(nullable = true)
     private String description;

@@ -2,8 +2,6 @@ package com.notax.notax_project.infra.entities;
 
 import java.io.Serializable;
 
-import com.notax.notax_project.infra.enums.GradeIdentEnum;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,10 +36,6 @@ public class GradeModel implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false)
     private StudentModel student;
-    
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private ClassModel scholarClass;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -49,7 +43,4 @@ public class GradeModel implements Serializable {
 
     @Column(nullable = false)
     private Integer weight;
-
-    @Column(nullable = false)
-    private GradeIdentEnum gradeIdentificator;
 }

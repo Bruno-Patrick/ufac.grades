@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.notax.notax_project.domain.entities.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,15 +54,17 @@ public class UserModel implements Serializable {
     @Column(nullable = false)
     private Date birthDate;
 
-    public void setPassword(String password) {
-        setPassword(password, false);
-    }
-
-    public void setPassword(String password, boolean encrypt) {
-        if (encrypt) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            password = encoder.encode(password);
-        }
-        this.password = password;
+    public User toEntity() {
+        return User
+            .builder()
+            .id(this.id)
+            .email(this.email)
+            .name(this.name)
+            .phone(this.phone)
+            .password(this.password)
+            .createTime(this.createTime)
+            .isActive(this.isActive)
+            .birthDate(this.birthDate)
+            .build();
     }
 }

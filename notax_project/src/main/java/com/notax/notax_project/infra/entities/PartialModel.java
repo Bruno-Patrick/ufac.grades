@@ -24,6 +24,18 @@ import lombok.Setter;
 @Entity
 @Table(name = "partial")
 public class PartialModel implements Serializable {
+    public enum PartialType {
+        ACTIVITY,
+        SEMINARY,
+        EXAM
+    }
+
+    public enum PartialTime {
+        N1,
+        N2,
+        FINAL,
+        RECOVERY
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,4 +51,10 @@ public class PartialModel implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false)
     private ClassModel scholarClass;
+
+    @Column(nullable = false)
+    private PartialModel.PartialType partialType;
+
+    @Column(nullable = false)
+    private PartialModel.PartialTime partialTime;
 }

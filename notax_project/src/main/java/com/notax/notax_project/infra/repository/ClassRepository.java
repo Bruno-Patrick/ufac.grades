@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.notax.notax_project.infra.entities.ClassModel;
 import com.notax.notax_project.infra.entities.DisciplineModel;
-import com.notax.notax_project.infra.enums.ClassIdentEnum;
-import com.notax.notax_project.infra.enums.OrdinalsEnum;
 
 @Repository
 public interface ClassRepository extends JpaRepository<Long, ClassModel>{
@@ -21,8 +19,8 @@ public interface ClassRepository extends JpaRepository<Long, ClassModel>{
         "AND c.year = :year"
         )
     List<ClassModel> findByIdentAndOrdinalAndYear(
-        @Param("ident") ClassIdentEnum ident,
-        @Param("ordinal") OrdinalsEnum ordinal,
+        @Param("ident") DisciplineModel.Periodicity ident,
+        @Param("ordinal") DisciplineModel.Ordinals ordinal,
         @Param("year") Integer year  
         );
 
