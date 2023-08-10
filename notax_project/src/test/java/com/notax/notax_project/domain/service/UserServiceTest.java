@@ -18,12 +18,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import com.notax.notax_project.application.DTO.UserDTO;
-import com.notax.notax_project.infra.entities.UserModel;
-import com.notax.notax_project.infra.repository.UserRepository;
+import com.notax.notax_project.infra.springboot.entities.UserModel;
+import com.notax.notax_project.infra.springboot.repository.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-    
+
     // @InjectMocks
     // UserService service;
 

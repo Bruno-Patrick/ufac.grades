@@ -3,8 +3,8 @@ package com.notax.notax_project.domain.entities;
 import java.util.Objects;
 
 import com.notax.notax_project.domain.error.NullError;
-import com.notax.notax_project.infra.entities.ClassModel;
-import com.notax.notax_project.infra.entities.PartialModel;
+import com.notax.notax_project.infra.springboot.entities.ClassModel;
+import com.notax.notax_project.infra.springboot.entities.PartialModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

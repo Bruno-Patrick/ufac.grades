@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.notax.notax_project.domain.error.NotEmptyError;
 import com.notax.notax_project.domain.error.NullError;
-import com.notax.notax_project.infra.entities.ClassModel;
-import com.notax.notax_project.infra.entities.GuardianModel;
+import com.notax.notax_project.infra.springboot.entities.ClassModel;
+import com.notax.notax_project.infra.springboot.entities.GuardianModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class Student {
     private List<ClassModel> disciplinesList;
     private List<ClassModel> classModel;
     private List<GuardianModel> guardiansList;
-    
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -54,6 +54,6 @@ public class Student {
         this.guardiansList = guardiansList;
     }
 
-    
+
 
 }

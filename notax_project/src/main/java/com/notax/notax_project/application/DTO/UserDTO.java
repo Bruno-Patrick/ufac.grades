@@ -3,6 +3,7 @@ package com.notax.notax_project.application.DTO;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -19,7 +20,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDTO {
+public class UserDTO implements IDTO {
+
+    public UserDTO(User user) {
+        this.setId(user.getId());
+        this.setEmail(user.getEmail());
+        this.setPassword(user.getPassword());
+        this.setCreateTime(user.getCreateTime());
+        this.setName(user.getName());
+        this.setPhone(user.getPhone());
+        this.setIsActive(user.getIsActive());
+        this.setBirthDate(user.getBirthDate());
+    }
+
     @JsonProperty("id")
     Long id;
     @JsonProperty("email")
@@ -37,8 +50,8 @@ public class UserDTO {
     @JsonProperty("birth_date")
     Date birthDate;
 
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("id", this.id);
         map.put("email", this.email);
         map.put("password", this.password);
