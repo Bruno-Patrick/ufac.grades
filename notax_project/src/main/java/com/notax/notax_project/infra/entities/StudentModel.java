@@ -28,7 +28,17 @@ import lombok.Setter;
 @Entity
 @Table(name = "student")
 public class StudentModel implements Serializable {
-    
+
+    public StudentModel(Student student) {
+        this.setId(student.getId());
+        this.setName(student.getName());
+        this.setPhone(student.getPhone());
+        this.setEmail(student.getEmail());
+        this.setDisciplinesList(student.getDisciplinesList());
+        this.setClassModel(student.getClassModel());
+        this.setGuardiansList(student.getGuardiansList());
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -45,7 +55,7 @@ public class StudentModel implements Serializable {
 
     @OneToMany(mappedBy = "studentsList")
     private List<ClassModel> disciplinesList;
-    
+
     @OneToMany(mappedBy = "studentsList")
     private List<ClassModel> classModel;
 

@@ -3,7 +3,6 @@ package com.notax.notax_project.application.DTO;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.notax.notax_project.infra.enums.GradeIdentEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,8 +28,6 @@ public class GradeDTO {
     PartialDTO partial;
     @JsonProperty("weight")
     Integer weight;
-    @JsonProperty("grade_identificator")
-    GradeIdentEnum gradeIdentificator;
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
@@ -40,7 +37,6 @@ public class GradeDTO {
         map.put("classDTO", this.classDTO);
         map.put("partial", this.partial);
         map.put("weight", this.weight);
-        map.put("gradeIdentificator", this.gradeIdentificator);
         return map;
     }
 }

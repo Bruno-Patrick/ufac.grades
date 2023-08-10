@@ -16,9 +16,12 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
         "WHERE u.name LIKE :searchTerm " +
         "OR u.email LIKE :searchTerm " +
         "OR u.phone LIKE :searchTerm " +
-        "AND u.isActive = 1"
+        "AND u.isActive = :bool"
     )
-    List<UserModel> findBySearchTerm(@Param("searchTerm") String seacrhTerm);
+    List<UserModel> findBySearchTerm(
+        @Param("searchTerm") String seacrhTerm,
+        @Param("bool") Boolean bool
+    );
     UserModel findByEmail(String email);
     List<UserModel> findAllByIsActiveTrue();
     long countByIsActiveTrue();

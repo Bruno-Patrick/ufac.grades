@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.notax.notax_project.domain.entities.Class;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,16 @@ import lombok.Setter;
 @Builder
 public class ClassModel implements Serializable {
 
+    public ClassModel(Class clazz) {
+        this.setId(clazz.getId());
+        this.setYear(clazz.getYear());
+        this.setDescription(clazz.getDescription());
+        this.setCreateTime(clazz.getCreateTime());
+        this.setDiscipline(clazz.getDiscipline());
+        this.setIsActive(clazz.getIsActive());
+        this.setStudentsList(clazz.getStudentsList());
+    }
+
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(updatable = false)
@@ -39,7 +51,8 @@ public class ClassModel implements Serializable {
     private String description;
 
     @Column(updatable = false, nullable = false)
-    private final LocalDateTime createTime = LocalDateTime.now();
+    @Builder.Default
+    private LocalDateTime createTime = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -62,4 +75,17 @@ public class ClassModel implements Serializable {
         )
     )
     private List<StudentModel> studentsList;
+
+    public Class toEntity() {
+        return Class
+            .builder()
+            .id(id)
+            .year(year)
+            .description(description)
+            .createTime(createTime)
+            .discipline(discipline)
+            .isActive(isActive)
+            .studentsList(studentsList)
+            .build();
+    }
 }

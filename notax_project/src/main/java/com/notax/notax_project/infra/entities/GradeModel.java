@@ -2,6 +2,8 @@ package com.notax.notax_project.infra.entities;
 
 import java.io.Serializable;
 
+import com.notax.notax_project.domain.entities.Grade;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +26,15 @@ import lombok.Setter;
 @Entity
 @Table(name = "grade")
 public class GradeModel implements Serializable {
-    
+
+    public GradeModel(Grade grade) {
+        this.setId(grade.getId());
+        this.setGrade(grade.getGrade());
+        this.setStudent(grade.getStudent());
+        this.setPartial(grade.getPartial());
+        this.setWeight(grade.getWeight());
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -43,4 +53,15 @@ public class GradeModel implements Serializable {
 
     @Column(nullable = false)
     private Integer weight;
+
+    public Grade toEntity() {
+        return Grade
+            .builder()
+            .id(id)
+            .grade(grade)
+            .student(student)
+            .partial(partial)
+            .weight(weight)
+            .build();
+    }
 }

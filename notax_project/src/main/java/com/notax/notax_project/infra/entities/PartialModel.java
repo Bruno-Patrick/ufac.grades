@@ -2,6 +2,8 @@ package com.notax.notax_project.infra.entities;
 
 import java.io.Serializable;
 
+import com.notax.notax_project.domain.entities.Partial;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +38,16 @@ public class PartialModel implements Serializable {
         FINAL,
         RECOVERY
     }
-    
+
+    public PartialModel(Partial partial) {
+        this.setId(partial.getId());
+        this.setTitle(partial.getTitle());
+        this.setDescription(partial.getDescription());
+        this.setScholarClass(partial.getScholarClass());
+        this.setPartialTime(partial.getPartialTime());
+        this.setPartialType(partial.getPartialType());
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -57,4 +68,16 @@ public class PartialModel implements Serializable {
 
     @Column(nullable = false)
     private PartialModel.PartialTime partialTime;
+
+    public Partial toEntity() {
+        return Partial
+            .builder()
+            .id(id)
+            .title(title)
+            .description(description)
+            .scholarClass(scholarClass)
+            .partialType(partialType)
+            .partialTime(partialTime)
+            .build();
+    }
 }

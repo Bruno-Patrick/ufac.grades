@@ -24,24 +24,39 @@ public class Discipline {
     private String name;
     private String description;
     private String organization;
-    private final LocalDateTime createTime = LocalDateTime.now();
+    private LocalDateTime createTime;
     private Boolean isActive;
     private UserModel user;
     private List<ClassModel> classList;
 
+    public void setCreateTime(LocalDateTime createTime) throws NullError {
+        if (createTime == null) {
+            throw new NullError("create time");
+        }
+        this.createTime = createTime;
+    }
     public void setId(Long id) throws NullError {
         if (id == null) {
             throw new NullError("id");
         }
         this.id = id;
     }
-    public void setPeriodicity(DisciplineModel.Periodicity periodicity) {
+    public void setPeriodicity(DisciplineModel.Periodicity periodicity) throws NullError {
+        if (periodicity == null) {
+            throw new NullError("periodicy");
+        }
         this.periodicity = periodicity;
     }
-    public void setOrdinal(DisciplineModel.Ordinals ordinal) {
+    public void setOrdinal(DisciplineModel.Ordinals ordinal) throws NullError {
+        if (ordinal == null) {
+            throw new NullError("ordinal");
+        }
         this.ordinal = ordinal;
     }
-    public void setName(String name) {
+    public void setName(String name) throws NullError {
+        if (name == null) {
+            throw new NullError("name");
+        }
         this.name = name;
     }
     public void setDescription(String description) {
@@ -50,13 +65,19 @@ public class Discipline {
     public void setOrganization(String organization) {
         this.organization = organization;
     }
-    public void setIsActive(Boolean isActive) {
+    public void setIsActive(Boolean isActive) throws NullError {
+        if (isActive == null) {
+            throw new NullError("isActive");
+        }
         this.isActive = isActive;
     }
-    public void setUser(UserModel user) {
+    public void setUser(UserModel user) throws NullError {
+        if (user == null) {
+            throw new NullError("user");
+        }
         this.user = user;
     }
-    public void setClassList(List<ClassModel> classList) {
+    public void setClassList(List<ClassModel> classList) throws NullError {
         this.classList = classList;
     }
 }

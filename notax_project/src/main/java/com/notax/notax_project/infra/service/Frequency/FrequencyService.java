@@ -1,4 +1,4 @@
-package com.notax.notax_project.domain.service;
+package com.notax.notax_project.infra.service.Frequency;
 
 import java.util.Date;
 import java.util.List;

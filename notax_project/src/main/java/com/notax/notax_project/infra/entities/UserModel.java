@@ -26,7 +26,18 @@ import lombok.Setter;
 @Entity
 @Table(name = "user")
 public class UserModel implements Serializable {
-    
+
+    public UserModel(User user) {
+        setId(user.getId());
+        setEmail(user.getEmail());
+        setName(user.getName());
+        setPhone(user.getPhone());
+        setPassword(user.getPassword());
+        setCreateTime(user.getCreateTime());
+        setIsActive(user.getIsActive());
+        setBirthDate(user.getBirthDate());
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -45,7 +56,8 @@ public class UserModel implements Serializable {
     private String password;
 
     @Column(nullable = false)
-    private final LocalDateTime createTime = LocalDateTime.now();
+    @Builder.Default
+    private LocalDateTime createTime = LocalDateTime.now();
 
     @Column(nullable = false)
     @Builder.Default

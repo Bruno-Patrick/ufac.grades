@@ -2,6 +2,8 @@ package com.notax.notax_project.infra.entities;
 
 import java.util.Date;
 
+import com.notax.notax_project.domain.entities.Frequency;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +26,14 @@ import lombok.Setter;
 @Entity
 @Table(name = "frequency")
 public class FrequencyModel {
-    
+
+    public FrequencyModel(Frequency frequency) {
+        this.setId(frequency.getId());
+        this.setDate(frequency.getDate());
+        this.setStudent(frequency.getStudent());
+        this.setScholarClass(frequency.getScholarClass());
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
@@ -40,4 +49,14 @@ public class FrequencyModel {
     @ManyToOne
     @JoinColumn(nullable = false)
     private ClassModel scholarClass;
+
+    public Frequency toEntity() {
+        return Frequency
+            .builder()
+            .id(id)
+            .date(date)
+            .student(student)
+            .scholarClass(scholarClass)
+            .build();
+    }
 }

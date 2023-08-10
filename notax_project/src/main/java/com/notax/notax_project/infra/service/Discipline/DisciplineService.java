@@ -1,4 +1,4 @@
-package com.notax.notax_project.domain.service;
+package com.notax.notax_project.infra.service.Discipline;
 
 import java.util.List;
 import java.util.Objects;

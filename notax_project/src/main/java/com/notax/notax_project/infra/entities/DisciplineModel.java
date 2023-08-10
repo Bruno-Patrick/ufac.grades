@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.notax.notax_project.domain.entities.Discipline;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +35,8 @@ public class DisciplineModel implements Serializable {
         BIMONTHLY,
         TRIMONTHLY,
         QUADRIMONTHLY,
-        SEMESTERLY
+        SEMESTERLY,
+        ANUAL
     }
 
     public enum Ordinals {
@@ -50,7 +53,41 @@ public class DisciplineModel implements Serializable {
         TH_11,
         TH_12
     }
-    
+
+    public DisciplineModel(Discipline discipline) {
+        this.setId(discipline.getId());
+        this.setPeriodicity(discipline.getPeriodicity());
+        this.setOrdinal(discipline.getOrdinal());
+        this.setName(discipline.getName());
+        this.setDescription(discipline.getDescription());
+        this.setOrganization(discipline.getOrganization());
+        this.setCreateTime(discipline.getCreateTime());
+        this.setIsActive(discipline.getIsActive());
+        this.setUser(discipline.getUser());
+        this.setClassList(discipline.getClassList());
+    }
+
+    public DisciplineModel(
+        Long id,
+        Periodicity periodicity,
+        Ordinals ordinal,
+        String name,
+        String description,
+        String organization,
+        UserModel user,
+        List<ClassModel> classList
+        ) {
+        this.id = id;
+        this.periodicity = periodicity;
+        this.ordinal = ordinal;
+        this.name = name;
+        this.description = description;
+        this.organization = organization;
+        this.user = user;
+        this.classList = classList;
+        this.setCreateTime(LocalDateTime.now());
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -61,7 +98,7 @@ public class DisciplineModel implements Serializable {
 
     @Column(nullable = false)
     private DisciplineModel.Ordinals ordinal;
-    
+
     @Column(nullable = false)
     private String name;
 
@@ -72,7 +109,8 @@ public class DisciplineModel implements Serializable {
     private String organization;
 
     @Column(nullable = false, updatable = false)
-    private final LocalDateTime createTime = LocalDateTime.now();
+    @Builder.Default
+    private LocalDateTime createTime = LocalDateTime.now();
 
     @Column(nullable = false)
     @Builder.Default
@@ -94,6 +132,21 @@ public class DisciplineModel implements Serializable {
             nullable = false
         )
     )
-    @JoinColumn(nullable = false)
     private List<ClassModel> classList;
+
+    public Discipline toEntity() {
+        return Discipline
+            .builder()
+            .id(id)
+            .periodicity(periodicity)
+            .ordinal(ordinal)
+            .name(name)
+            .description(description)
+            .organization(organization)
+            .createTime(createTime)
+            .isActive(isActive)
+            .user(user)
+            .classList(classList)
+            .build();
+    }
 }
