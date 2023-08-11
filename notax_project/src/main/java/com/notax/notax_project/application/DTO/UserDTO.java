@@ -33,21 +33,27 @@ public class UserDTO implements IDTO {
         this.setBirthDate(user.getBirthDate());
     }
 
-    @JsonProperty("id")
+    @JsonProperty(
+        namespace = "id",
+        access = Access.READ_ONLY
+    )
     Long id;
     @JsonProperty("email")
     String email;
     @JsonProperty(access = Access.WRITE_ONLY)
     String password;
-    @JsonProperty("create_time")
+    @JsonProperty(
+        namespace = "create time",
+        access = Access.READ_ONLY
+    )
     LocalDateTime createTime;
     @JsonProperty("name")
     String name;
     @JsonProperty("phone")
     String phone;
-    @JsonProperty("is_active")
+    @JsonProperty("active")
     Boolean isActive;
-    @JsonProperty("birth_date")
+    @JsonProperty("birth date")
     Date birthDate;
 
     public Map<String, Object> toMap() {
