@@ -2,6 +2,7 @@ package com.notax.notax_project.infra.springboot.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.notax.notax_project.domain.entities.Student;
 
@@ -34,7 +35,6 @@ public class StudentModel implements Serializable {
         this.setName(student.getName());
         this.setPhone(student.getPhone());
         this.setEmail(student.getEmail());
-        this.setDisciplinesList(student.getDisciplinesList());
         this.setClassModel(student.getClassModel());
         this.setGuardiansList(student.getGuardiansList());
     }
@@ -52,9 +52,6 @@ public class StudentModel implements Serializable {
 
     @Column(nullable =  true)
     private String email;
-
-    @OneToMany(mappedBy = "studentsList")
-    private List<ClassModel> disciplinesList;
 
     @OneToMany(mappedBy = "studentsList")
     private List<ClassModel> classModel;
@@ -81,7 +78,9 @@ public class StudentModel implements Serializable {
             .name(name)
             .phone(phone)
             .email(email)
-            .disciplinesList(disciplinesList)
+            .disciplines(disciplinesList.stream().map(
+                model -> model.toEntity()
+            ).collect(Collectors.toList()))
             .classModel(classModel)
             .guardiansList(guardiansList)
             .build();

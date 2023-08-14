@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.notax.notax_project.application.DTO.UserDTO;
 import com.notax.notax_project.domain.error.NotEmptyError;
 import com.notax.notax_project.domain.error.NullError;
 
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class User {
-    
+
     private Long id;
     private String email;
     private String name;

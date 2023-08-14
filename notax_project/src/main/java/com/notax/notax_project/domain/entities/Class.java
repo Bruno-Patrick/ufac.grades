@@ -21,9 +21,9 @@ public class Class {
     private Integer year;
     private String description;
     private LocalDateTime createTime;
-    private DisciplineModel discipline;
+    private Discipline discipline;
     private Boolean isActive;
-    private List<StudentModel> studentsList;
+    private List<Student> studentsList;
 
     public void setId(Long id) throws NullError {
         if (id == null) {
@@ -46,7 +46,7 @@ public class Class {
         }
         this.createTime = createTime;
     }
-    public void setDiscipline(DisciplineModel discipline) throws NullError {
+    public void setDiscipline(Discipline discipline) throws NullError {
         if (discipline == null) {
             throw new NullError("discipline");
         }
@@ -58,7 +58,7 @@ public class Class {
         }
         this.isActive = isActive;
     }
-    public void setStudentsList(List<StudentModel> studentsList) {
+    public void setStudentsList(List<Student> studentsList) {
         this.studentsList = studentsList;
     }
 }

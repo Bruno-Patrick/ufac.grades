@@ -21,6 +21,22 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class UserDTO implements IDTO {
+    @JsonProperty(namespace = "id", access = Access.READ_ONLY)
+    Long id;
+    @JsonProperty("email")
+    String email;
+    @JsonProperty(access = Access.WRITE_ONLY)
+    String password;
+    @JsonProperty(namespace = "create time", access = Access.READ_ONLY)
+    LocalDateTime createTime;
+    @JsonProperty("name")
+    String name;
+    @JsonProperty("phone")
+    String phone;
+    @JsonProperty("active")
+    Boolean isActive;
+    @JsonProperty("birth date")
+    Date birthDate;
 
     public UserDTO(User user) {
         this.setId(user.getId());
@@ -32,29 +48,6 @@ public class UserDTO implements IDTO {
         this.setIsActive(user.getIsActive());
         this.setBirthDate(user.getBirthDate());
     }
-
-    @JsonProperty(
-        namespace = "id",
-        access = Access.READ_ONLY
-    )
-    Long id;
-    @JsonProperty("email")
-    String email;
-    @JsonProperty(access = Access.WRITE_ONLY)
-    String password;
-    @JsonProperty(
-        namespace = "create time",
-        access = Access.READ_ONLY
-    )
-    LocalDateTime createTime;
-    @JsonProperty("name")
-    String name;
-    @JsonProperty("phone")
-    String phone;
-    @JsonProperty("active")
-    Boolean isActive;
-    @JsonProperty("birth date")
-    Date birthDate;
 
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
@@ -71,15 +64,15 @@ public class UserDTO implements IDTO {
 
     public User toEntity() {
         return User
-            .builder()
-            .id(this.id)
-            .email(this.email)
-            .name(this.name)
-            .phone(this.phone)
-            .password(this.password)
-            .createTime(this.createTime)
-            .isActive(this.isActive)
-            .birthDate(this.birthDate)
-            .build();
+                .builder()
+                .id(this.id)
+                .email(this.email)
+                .name(this.name)
+                .phone(this.phone)
+                .password(this.password)
+                .createTime(this.createTime)
+                .isActive(this.isActive)
+                .birthDate(this.birthDate)
+                .build();
     }
 }

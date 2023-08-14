@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 public class Frequency {
     private Long id;
     private Date date;
-    private StudentModel student;
-    private ClassModel scholarClass;
+    private Student student;
+    private Class scholarClass;
 
     public void setId(Long id) throws NullError {
         if (id == null) {
@@ -33,13 +33,13 @@ public class Frequency {
         }
         this.date = date;
     }
-    public void setStudent(StudentModel student) throws NullError {
+    public void setStudent(Student student) throws NullError {
         if (student == null) {
             throw new NullError("student");
         }
         this.student = student;
     }
-    public void setScholarClass(ClassModel scholarClass) throws NullError {
+    public void setScholarClass(Class scholarClass) throws NullError {
         if (scholarClass == null) {
             throw new NullError("class");
         }

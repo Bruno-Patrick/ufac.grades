@@ -3,6 +3,7 @@ package com.notax.notax_project.infra.springboot.entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.notax.notax_project.domain.entities.Class;
 
@@ -29,15 +30,6 @@ import lombok.Setter;
 @Builder
 public class ClassModel implements Serializable {
 
-    public ClassModel(Class clazz) {
-        this.setId(clazz.getId());
-        this.setYear(clazz.getYear());
-        this.setDescription(clazz.getDescription());
-        this.setCreateTime(clazz.getCreateTime());
-        this.setDiscipline(clazz.getDiscipline());
-        this.setIsActive(clazz.getIsActive());
-        this.setStudentsList(clazz.getStudentsList());
-    }
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -68,13 +60,26 @@ public class ClassModel implements Serializable {
         joinColumns = @JoinColumn(
             name = "class",
             nullable = false
-        ),
-        inverseJoinColumns = @JoinColumn(
-            name = "student",
+            ),
+            inverseJoinColumns = @JoinColumn(
+                name = "student",
             nullable = false
-        )
+            )
     )
     private List<StudentModel> studentsList;
+
+    public ClassModel(Class clazz) {
+        this.setId(clazz.getId());
+        this.setYear(clazz.getYear());
+        this.setDescription(clazz.getDescription());
+        this.setCreateTime(clazz.getCreateTime());
+        this.setDiscipline(new DisciplineModel(clazz.getDiscipline()));
+        this.setIsActive(clazz.getIsActive());
+
+        this.setStudentsList(clazz.getStudentsList().stream().map(
+            student -> new StudentModel(student)
+        ).collect(Collectors.toList()));
+    }
 
     public Class toEntity() {
         return Class
@@ -83,7 +88,7 @@ public class ClassModel implements Serializable {
             .year(year)
             .description(description)
             .createTime(createTime)
-            .discipline(discipline)
+            .discipline(discipline.toEntity())
             .isActive(isActive)
             .studentsList(studentsList)
             .build();

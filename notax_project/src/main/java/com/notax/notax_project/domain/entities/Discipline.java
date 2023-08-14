@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.notax.notax_project.domain.error.NullError;
-import com.notax.notax_project.infra.springboot.entities.ClassModel;
 import com.notax.notax_project.infra.springboot.entities.DisciplineModel;
-import com.notax.notax_project.infra.springboot.entities.UserModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,8 +24,8 @@ public class Discipline {
     private String organization;
     private LocalDateTime createTime;
     private Boolean isActive;
-    private UserModel user;
-    private List<ClassModel> classList;
+    private User user;
+    private List<Class> classList;
 
     public void setCreateTime(LocalDateTime createTime) throws NullError {
         if (createTime == null) {
@@ -71,13 +69,13 @@ public class Discipline {
         }
         this.isActive = isActive;
     }
-    public void setUser(UserModel user) throws NullError {
+    public void setUser(User user) throws NullError {
         if (user == null) {
             throw new NullError("user");
         }
         this.user = user;
     }
-    public void setClassList(List<ClassModel> classList) throws NullError {
+    public void setClassList(List<Class> classList) throws NullError {
         this.classList = classList;
     }
 }

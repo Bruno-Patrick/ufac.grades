@@ -3,7 +3,6 @@ package com.notax.notax_project.domain.entities;
 import java.util.List;
 
 import com.notax.notax_project.domain.error.NullError;
-import com.notax.notax_project.infra.springboot.entities.StudentModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,7 @@ public class Guardian {
     private String name;
     private String phone;
     private String email;
-    private List<StudentModel> studentsList;
+    private List<Student> studentsList;
 
     public void setId(Long id) throws NullError {
         if (id == null) {
@@ -39,7 +38,7 @@ public class Guardian {
     public void setEmail(String email) {
         this.email = email;
     }
-    public void setStudentsList(List<StudentModel> studentsList) {
+    public void setStudentsList(List<Student> studentsList) {
         this.studentsList = studentsList;
     }
 

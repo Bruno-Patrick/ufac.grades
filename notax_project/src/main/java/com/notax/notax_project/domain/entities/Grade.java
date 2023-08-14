@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 public class Grade {
     private Long id;
     private Float grade;
-    private StudentModel student;
-    private PartialModel partial;
+    private Student student;
+    private Partial partial;
     private Integer weight;
 
     public void setId(Long id) throws NullError {
@@ -32,13 +32,13 @@ public class Grade {
         }
         this.grade = grade;
     }
-    public void setStudent(StudentModel student) throws NullError {
+    public void setStudent(Student student) throws NullError {
         if (student == null) {
             throw new NullError("id");
         }
         this.student = student;
     }
-    public void setPartial(PartialModel partial) throws NullError {
+    public void setPartial(Partial partial) throws NullError {
         if (partial == null) {
             throw new NullError("id");
         }

@@ -3,7 +3,6 @@ package com.notax.notax_project.domain.entities;
 import java.util.Objects;
 
 import com.notax.notax_project.domain.error.NullError;
-import com.notax.notax_project.infra.springboot.entities.ClassModel;
 import com.notax.notax_project.infra.springboot.entities.PartialModel;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class Partial {
     private Long id;
     private String title;
     private String description;
-    private ClassModel scholarClass;
+    private Class scholarClass;
     private PartialModel.PartialType partialType;
     private PartialModel.PartialTime partialTime;
 
@@ -50,7 +49,7 @@ public class Partial {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setScholarClass(ClassModel scholarClass) throws NullError {
+    public void setScholarClass(Class scholarClass) throws NullError {
         if (Objects.isNull(scholarClass)) {
             throw new NullError("class");
         }
