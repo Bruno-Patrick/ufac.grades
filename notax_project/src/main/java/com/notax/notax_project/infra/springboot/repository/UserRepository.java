@@ -25,4 +25,6 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
     UserModel findByEmail(String email);
     List<UserModel> findAllByIsActiveTrue();
     long countByIsActiveTrue();
+    UserModel findByIdAndIsActiveIsTrue(Long id);
+    void deleteByEmail(String email);
 }

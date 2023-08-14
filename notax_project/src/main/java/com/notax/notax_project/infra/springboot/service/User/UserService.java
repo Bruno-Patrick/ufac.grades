@@ -12,9 +12,12 @@ import com.notax.notax_project.infra.shared.validators.NotEmptyValidator;
 import com.notax.notax_project.infra.shared.validators.NotNullFieldValidator;
 import com.notax.notax_project.infra.shared.validators.NotNullValidator;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.CreateUserUseCase;
+import com.notax.notax_project.infra.springboot.controller.useCases.User.DeleteUserByEmailUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetAllUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserByEmailUseCase;
+import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserByIdUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserBySearchTermUseCase;
+import com.notax.notax_project.infra.springboot.controller.useCases.User.UpdateUserUseCase;
 import com.notax.notax_project.infra.springboot.repository.UserRepository;
 
 @Service
@@ -24,6 +27,9 @@ public class UserService implements IUserService {
     private GetUserByEmailUseCase getUserByEmailUseCase;
     private GetUserBySearchTermUseCase getUserBySearchTermUseCase;
     private GetAllUseCase getAllUseCase;
+    private GetUserByIdUseCase getUserByIdUseCase;
+    private DeleteUserByEmailUseCase deleteUserByEmailUseCase;
+    private UpdateUserUseCase updateUserUseCase;
 
     public UserService(UserRepository userRepository) {
 
@@ -51,19 +57,53 @@ public class UserService implements IUserService {
                 new NotNullFieldValidator<UserDTO>("password"),
                 new NotNullFieldValidator<UserDTO>("name"),
                 new NotNullFieldValidator<UserDTO>("birthDate")
+            ).collect(Collectors.toList())
+        );
 
+        this.getUserByIdUseCase = new GetUserByIdUseCase(
+            userRepository,
+            Stream.of(
+                new NotNullValidator<Long>("id")
+            ).collect(Collectors.toList())
+        );
+
+        this.deleteUserByEmailUseCase = new DeleteUserByEmailUseCase(
+            userRepository,
+            Stream.of(
+                new NotEmptyValidator("email"),
+                new NotNullValidator<String>("email")
+            ).collect(Collectors.toList())
+        );
+
+        this.updateUserUseCase = new UpdateUserUseCase(
+            userRepository,
+            Stream.of(
+                new NotNullFieldValidator<UserDTO>("name"),
+                new NotNullValidator<UserDTO>("id"),
+                new NotNullValidator<UserDTO>("password"),
+                new NotNullValidator<UserDTO>("name"),
+                new NotNullValidator<UserDTO>("birthDate"),
+                new NotNullValidator<UserDTO>("createTime"),
+                new NotNullValidator<UserDTO>("isActive"),
+                new NotNullValidator<UserDTO>("birthDate")
             ).collect(Collectors.toList())
         );
     }
 
+
     @Override
-	public List<UserDTO> getAll() {
-        return this.getAllUseCase.execute();
+    public UserDTO create(UserDTO userDTO) throws Exception {
+        return this.createUserUseCase.execute(userDTO);
     }
 
     @Override
-    public UserDTO create(UserDTO userDTO) {
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+    public void deleteByEmail(String email) throws Exception {
+        this.deleteUserByEmailUseCase.execute(email);;
+    }
+
+    @Override
+    public UserDTO update(UserDTO userDTO) throws Exception {
+        return this.updateUserUseCase.execute(userDTO);
     }
 
     @Override
@@ -73,13 +113,16 @@ public class UserService implements IUserService {
 
     @Override
     public UserDTO getByID(Long id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getByID'");
+        return this.getUserByIdUseCase.execute(id);
     }
 
     @Override
     public UserDTO getByEmail(String email) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getByEmail'");
+        return this.getUserByEmailUseCase.execute(email);
+    }
+
+    @Override
+    public List<UserDTO> getAll() {
+        return this.getAllUseCase.execute();
     }
 }
