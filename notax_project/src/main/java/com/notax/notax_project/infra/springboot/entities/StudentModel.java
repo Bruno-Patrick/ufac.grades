@@ -35,8 +35,14 @@ public class StudentModel implements Serializable {
         this.setName(student.getName());
         this.setPhone(student.getPhone());
         this.setEmail(student.getEmail());
-        this.setClassModel(student.getClassModel());
-        this.setGuardiansList(student.getGuardiansList());
+
+        this.setClassModel(student.getClasses().stream().map(
+            entity -> new ClassModel(entity)
+        ).collect(Collectors.toList()));
+
+        this.setGuardiansList(student.getGuardians().stream().map(
+            entity -> new GuardianModel(entity)
+        ).collect(Collectors.toList()));
     }
 
     @Id
@@ -78,11 +84,15 @@ public class StudentModel implements Serializable {
             .name(name)
             .phone(phone)
             .email(email)
-            .disciplines(disciplinesList.stream().map(
+
+            .classes(classModel.stream().map(
                 model -> model.toEntity()
             ).collect(Collectors.toList()))
-            .classModel(classModel)
-            .guardiansList(guardiansList)
+
+            .guardians(guardiansList.stream().map(
+                model -> model.toEntity()
+            ).collect(Collectors.toList()))
+
             .build();
     }
 }

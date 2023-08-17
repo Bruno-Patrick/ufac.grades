@@ -2,6 +2,7 @@ package com.notax.notax_project.infra.springboot.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.notax.notax_project.domain.entities.Guardian;
 
@@ -32,7 +33,9 @@ public class GuardianModel implements Serializable {
         this.setName(guardian.getName());
         this.setPhone(guardian.getPhone());
         this.setEmail(guardian.getEmail());
-        this.setStudentsList(guardian.getStudentsList());
+        this.setStudentsList(guardian.getStudentsList().stream().map(
+            entity -> new StudentModel(entity)
+        ).collect(Collectors.toList()));
     }
 
     @Id
@@ -59,7 +62,9 @@ public class GuardianModel implements Serializable {
             .name(name)
             .phone(phone)
             .email(email)
-            .studentsList(studentsList)
+            .studentsList(studentsList.stream().map(
+                model -> model.toEntity()
+            ).collect(Collectors.toList()))
             .build();
     }
 }

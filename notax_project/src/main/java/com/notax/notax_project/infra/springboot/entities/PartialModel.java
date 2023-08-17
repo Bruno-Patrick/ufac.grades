@@ -43,7 +43,7 @@ public class PartialModel implements Serializable {
         this.setId(partial.getId());
         this.setTitle(partial.getTitle());
         this.setDescription(partial.getDescription());
-        this.setScholarClass(partial.getScholarClass());
+        this.setScholarClass(new ClassModel(partial.getScholarClass()));
         this.setPartialTime(partial.getPartialTime());
         this.setPartialType(partial.getPartialType());
     }
@@ -75,7 +75,7 @@ public class PartialModel implements Serializable {
             .id(id)
             .title(title)
             .description(description)
-            .scholarClass(scholarClass)
+            .scholarClass(scholarClass.toEntity())
             .partialType(partialType)
             .partialTime(partialTime)
             .build();

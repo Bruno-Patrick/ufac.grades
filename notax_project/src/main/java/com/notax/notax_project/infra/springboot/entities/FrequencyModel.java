@@ -30,8 +30,8 @@ public class FrequencyModel {
     public FrequencyModel(Frequency frequency) {
         this.setId(frequency.getId());
         this.setDate(frequency.getDate());
-        this.setStudent(frequency.getStudent());
-        this.setScholarClass(frequency.getScholarClass());
+        this.setStudent(new StudentModel(frequency.getStudent()));
+        this.setScholarClass(new ClassModel(frequency.getScholarClass()));
     }
 
     @Id
@@ -55,8 +55,8 @@ public class FrequencyModel {
             .builder()
             .id(id)
             .date(date)
-            .student(student)
-            .scholarClass(scholarClass)
+            .student(student.toEntity())
+            .scholarClass(scholarClass.toEntity())
             .build();
     }
 }

@@ -3,6 +3,7 @@ package com.notax.notax_project.infra.springboot.entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.notax.notax_project.domain.entities.Discipline;
 
@@ -63,8 +64,10 @@ public class DisciplineModel implements Serializable {
         this.setOrganization(discipline.getOrganization());
         this.setCreateTime(discipline.getCreateTime());
         this.setIsActive(discipline.getIsActive());
-        this.setUser(discipline.getUser());
-        this.setClassList(discipline.getClassList());
+        this.setUser(new UserModel(discipline.getUser()));
+        this.setClassList(discipline.getClassList().stream().map(
+            entity -> new ClassModel(entity)
+        ).collect(Collectors.toList()));
     }
 
     public DisciplineModel(
@@ -145,8 +148,10 @@ public class DisciplineModel implements Serializable {
             .organization(organization)
             .createTime(createTime)
             .isActive(isActive)
-            .user(user)
-            .classList(classList)
+            .user(user.toEntity())
+            .classList(classList.stream().map(
+                model -> model.toEntity()
+            ).collect(Collectors.toList()))
             .build();
     }
 }

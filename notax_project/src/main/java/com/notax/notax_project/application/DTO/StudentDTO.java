@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.notax.notax_project.domain.entities.Student;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +21,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class StudentDTO implements IDTO {
-    @JsonProperty("id")
+    @JsonProperty(
+        namespace = "id",
+        access = Access.READ_ONLY
+    )
     Long id;
     @JsonProperty("name")
     String name;
@@ -48,6 +52,18 @@ public class StudentDTO implements IDTO {
         ).collect(Collectors.toList()));
     }
 
+    public Student toEntity() {
+        return Student
+            .builder()
+            .id(id)
+            .name(name)
+            .phone(phone)
+            .email(email)
+            .classes(null)
+            .build();
+    }
+
+    @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("id", this.id);

@@ -30,8 +30,8 @@ public class GradeModel implements Serializable {
     public GradeModel(Grade grade) {
         this.setId(grade.getId());
         this.setGrade(grade.getGrade());
-        this.setStudent(grade.getStudent());
-        this.setPartial(grade.getPartial());
+        this.setStudent(new StudentModel(grade.getStudent()));
+        this.setPartial(new PartialModel(grade.getPartial()));
         this.setWeight(grade.getWeight());
     }
 
@@ -59,8 +59,8 @@ public class GradeModel implements Serializable {
             .builder()
             .id(id)
             .grade(grade)
-            .student(student)
-            .partial(partial)
+            .student(student.toEntity())
+            .partial(partial.toEntity())
             .weight(weight)
             .build();
     }

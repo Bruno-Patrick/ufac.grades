@@ -90,7 +90,9 @@ public class ClassModel implements Serializable {
             .createTime(createTime)
             .discipline(discipline.toEntity())
             .isActive(isActive)
-            .studentsList(studentsList)
+            .studentsList(studentsList.stream().map(
+                model -> model.toEntity()
+            ).collect(Collectors.toList()))
             .build();
     }
 }
