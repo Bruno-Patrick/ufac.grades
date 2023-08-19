@@ -27,6 +27,11 @@ import lombok.Setter;
 @Table(name = "user")
 public class UserModel implements Serializable {
 
+    public enum ROLES {
+        ROLE_USER,
+        ROLE_ADMIN
+    }
+
     public UserModel(User user) {
         setId(user.getId());
         setEmail(user.getEmail());
@@ -36,6 +41,7 @@ public class UserModel implements Serializable {
         setCreateTime(user.getCreateTime());
         setIsActive(user.getIsActive());
         setBirthDate(user.getBirthDate());
+        setRole(user.getRole());
     }
 
     @Id
@@ -54,6 +60,9 @@ public class UserModel implements Serializable {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private UserModel.ROLES role;
 
     @Column(nullable = false)
     @Builder.Default
@@ -77,6 +86,7 @@ public class UserModel implements Serializable {
             .createTime(this.createTime)
             .isActive(this.isActive)
             .birthDate(this.birthDate)
+            .role(this.role)
             .build();
     }
 }

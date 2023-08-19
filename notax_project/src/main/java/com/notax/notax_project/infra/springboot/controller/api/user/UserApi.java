@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.notax.notax_project.application.DTO.UserDTO;
+import com.notax.notax_project.infra.shared.erros.NotFoundError;
 import com.notax.notax_project.infra.springboot.service.User.UserService;
 
 @RestController
@@ -57,24 +58,22 @@ public class UserApi implements IUserApi {
     @Override
     @GetMapping("/email/{email}")
     public ResponseEntity<UserDTO> getByEmail(@PathVariable("email") String email) throws Exception {
-        UserDTO userDTO = userService.getByEmail(email);
-        return new ResponseEntity<UserDTO>(userDTO,HttpStatus.OK);
+        try {
+            UserDTO userDTO = userService.getByEmail(email);
+            return new ResponseEntity<UserDTO>(userDTO,HttpStatus.OK);
+        } catch (NotFoundError e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
     @GetMapping("/id/{id}")
     public ResponseEntity<UserDTO> getById(@PathVariable("id") Long id) throws Exception {
-        UserDTO userDTO = userService.getByID(id);
-        return new ResponseEntity<UserDTO>(userDTO,HttpStatus.OK);
+        try {
+            UserDTO userDTO = userService.getByID(id);
+            return new ResponseEntity<UserDTO>(userDTO,HttpStatus.OK);
+        } catch (NotFoundError e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
-
-    // @Override
-    // @GetMapping("/{searchTerm}")
-    // public ResponseEntity<List<UserDTO>> getBySearchTerm(
-    //     @PathVariable("searchTerm") String searchTerm
-    // ) throws Exception {
-    //     List<UserDTO> userDTOs  = userService.getBySearchTerm(searchTerm,true);
-    //     return new ResponseEntity<List<UserDTO>>(userDTOs,HttpStatus.OK);
-    // }
-
 }

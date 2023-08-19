@@ -7,18 +7,18 @@
 // import com.notax.notax_project.infra.shared.validators.IValidator;
 // import com.notax.notax_project.infra.springboot.controller.useCases.IBooleanUseCase;
 // import com.notax.notax_project.infra.springboot.entities.UserModel;
-// import com.notax.notax_project.infra.springboot.repository.UserRepository;
+// import com.notax.notax_project.infra.springboot.repository.IUserRepository;
 
 // public class GetUserBySearchTermUseCase implements IBooleanUseCase<String, Boolean, List<UserDTO>> {
 
-//     private UserRepository userRepository;
+//     private IUserRepository IUserRepository;
 //     private List<IValidator<String, Exception>> validators;
 
 //     public GetUserBySearchTermUseCase(
-//         UserRepository userRepository,
+//         IUserRepository IUserRepository,
 //         List<IValidator<String, Exception>> validators
 //     ) {
-//         this.userRepository = userRepository;
+//         this.IUserRepository = IUserRepository;
 //         this.validators = validators;
 //     }
 
@@ -29,7 +29,7 @@
 //             validator.validate(searchTerm);
 //         }
 
-//         List<UserModel> data = this.userRepository.findBySearchTerm(searchTerm, bool);
+//         List<UserModel> data = this.IUserRepository.findBySearchTerm(searchTerm, bool);
 //         return data.stream()
 //             .map(
 //                 model -> new UserDTO(model.toEntity())

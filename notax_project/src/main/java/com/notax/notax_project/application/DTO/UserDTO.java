@@ -8,6 +8,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.notax.notax_project.domain.entities.User;
+import com.notax.notax_project.infra.springboot.entities.UserModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +38,8 @@ public class UserDTO implements IDTO {
     Boolean isActive;
     @JsonProperty("birth date")
     Date birthDate;
+    @JsonProperty(namespace = "role", access = Access.READ_ONLY)
+    UserModel.ROLES role;
 
     public UserDTO(User user) {
         this.setId(user.getId());
@@ -47,6 +50,7 @@ public class UserDTO implements IDTO {
         this.setPhone(user.getPhone());
         this.setIsActive(user.getIsActive());
         this.setBirthDate(user.getBirthDate());
+        this.setRole(user.getRole());;
     }
 
     public Map<String, Object> toMap() {
@@ -59,6 +63,7 @@ public class UserDTO implements IDTO {
         map.put("phone", this.phone);
         map.put("isActive", this.isActive);
         map.put("birthDate", this.birthDate);
+        map.put("role", this.role);
         return map;
     }
 
@@ -73,6 +78,7 @@ public class UserDTO implements IDTO {
                 .createTime(this.createTime)
                 .isActive(this.isActive)
                 .birthDate(this.birthDate)
+                .role(this.role)
                 .build();
     }
 }

@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.notax.notax_project.infra.shared.validators.IValidator;
 import com.notax.notax_project.infra.springboot.controller.useCases.IVoidUseCase;
-import com.notax.notax_project.infra.springboot.repository.UserRepository;
+import com.notax.notax_project.infra.springboot.repository.IUserRepository;
 
 public class DeleteUserByEmailUseCase implements IVoidUseCase<String>  {
     private List<IValidator<String, Exception>> validators;
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
     public DeleteUserByEmailUseCase(
-        UserRepository userRepository,
+        IUserRepository userRepository,
         List<IValidator<String, Exception>> validators
     ) {
         this.userRepository = userRepository;

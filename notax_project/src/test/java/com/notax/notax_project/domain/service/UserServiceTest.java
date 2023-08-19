@@ -10,7 +10,7 @@ public class UserServiceTest {
     // UserService service;
 
     // @Mock
-    // UserRepository repo;
+    // IUserRepository repo;
     // @Mock
     // ModelMapper modelMapper;
 

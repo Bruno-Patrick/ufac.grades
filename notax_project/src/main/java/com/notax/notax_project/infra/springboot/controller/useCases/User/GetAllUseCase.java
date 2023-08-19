@@ -5,21 +5,24 @@ import java.util.stream.Collectors;
 
 import com.notax.notax_project.application.DTO.UserDTO;
 import com.notax.notax_project.infra.springboot.controller.useCases.IOutputUseCase;
-import com.notax.notax_project.infra.springboot.repository.UserRepository;
+import com.notax.notax_project.infra.springboot.repository.IUserRepository;
 
 public class GetAllUseCase implements IOutputUseCase<List<UserDTO>> {
 
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
-    public GetAllUseCase(UserRepository userRepository) {
+    public GetAllUseCase(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public List<UserDTO> execute() {
         return this.userRepository.findAll().stream()
+            .filter(
+                model -> model != null
+            )
             .map(
-                userModel -> new UserDTO(userModel.toEntity())
+                model -> new UserDTO(model.toEntity())
             ).collect(Collectors.toList());
     }
 }

@@ -18,20 +18,19 @@ import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUser
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserByIdUseCase;
 // import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserBySearchTermUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.UpdateUserUseCase;
-import com.notax.notax_project.infra.springboot.repository.UserRepository;
+import com.notax.notax_project.infra.springboot.repository.IUserRepository;
 
 @Service
 public class UserService implements IUserService {
 
     private CreateUserUseCase createUserUseCase;
     private GetUserByEmailUseCase getUserByEmailUseCase;
-    // private GetUserBySearchTermUseCase getUserBySearchTermUseCase;
     private GetAllUseCase getAllUseCase;
     private GetUserByIdUseCase getUserByIdUseCase;
     private DeleteUserByEmailUseCase deleteUserByEmailUseCase;
     private UpdateUserUseCase updateUserUseCase;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(IUserRepository IUserRepository) {
 
         List<IValidator<String, Exception>> validators = Stream.of(
             new NotEmptyValidator("email"),
@@ -39,19 +38,14 @@ public class UserService implements IUserService {
         ).collect(Collectors.toList());
 
         this.getUserByEmailUseCase = new GetUserByEmailUseCase(
-            userRepository,
+            IUserRepository,
             validators
         );
 
-        // this.getUserBySearchTermUseCase = new GetUserBySearchTermUseCase(
-        //     userRepository,
-        //     validators
-        // );
-
-        this.getAllUseCase = new GetAllUseCase(userRepository);
+        this.getAllUseCase = new GetAllUseCase(IUserRepository);
 
         this.createUserUseCase = new CreateUserUseCase(
-            userRepository,
+            IUserRepository,
             Stream.of(
                 new NotNullFieldValidator<UserDTO>("email"),
                 new NotNullFieldValidator<UserDTO>("password"),
@@ -61,14 +55,14 @@ public class UserService implements IUserService {
         );
 
         this.getUserByIdUseCase = new GetUserByIdUseCase(
-            userRepository,
+            IUserRepository,
             Stream.of(
                 new NotNullValidator<Long>("id")
             ).collect(Collectors.toList())
         );
 
         this.deleteUserByEmailUseCase = new DeleteUserByEmailUseCase(
-            userRepository,
+            IUserRepository,
             Stream.of(
                 new NotEmptyValidator("email"),
                 new NotNullValidator<String>("email")
@@ -76,7 +70,7 @@ public class UserService implements IUserService {
         );
 
         this.updateUserUseCase = new UpdateUserUseCase(
-            userRepository,
+            IUserRepository,
             Stream.of(
                 new NotNullFieldValidator<UserDTO>("name"),
                 new NotNullValidator<UserDTO>("id"),
@@ -105,11 +99,6 @@ public class UserService implements IUserService {
     public UserDTO update(UserDTO userDTO) throws Exception {
         return this.updateUserUseCase.execute(userDTO);
     }
-
-    // @Override
-    // public List<UserDTO> getBySearchTerm(String searchTerm, Boolean bool) throws Exception {
-    //     return this.getUserBySearchTermUseCase.execute(searchTerm, bool);
-    // }
 
     @Override
     public UserDTO getByID(Long id) throws Exception {

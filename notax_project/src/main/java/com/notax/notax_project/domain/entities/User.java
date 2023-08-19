@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.notax.notax_project.domain.error.NotEmptyError;
 import com.notax.notax_project.domain.error.NullError;
+import com.notax.notax_project.infra.springboot.entities.UserModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,15 @@ public class User {
     private String phone;
     private String password;
     private LocalDateTime createTime;
+    private UserModel.ROLES role;
+
+    public void setRole(UserModel.ROLES role) throws NullError {
+        if (role == null) {
+            throw new NullError("role");
+        }
+        this.role = role;
+    }
+
     @Builder.Default private Boolean isActive = true;
     private Date birthDate;
 
