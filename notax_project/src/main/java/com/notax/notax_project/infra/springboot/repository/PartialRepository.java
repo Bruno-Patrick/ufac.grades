@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.notax.notax_project.infra.springboot.entities.ClassModel;
@@ -14,9 +13,9 @@ import com.notax.notax_project.infra.springboot.entities.PartialModel;
 public interface PartialRepository extends JpaRepository<PartialModel, Long> {
     @Query(
         "SELECT p FROM PartialModel p " +
-        "WHERE p.title LIKE :searchTerm " +
-        "OR p.description LIKE :searchTerm"
+        "WHERE p.title LIKE %?1% " +
+        "OR p.description LIKE %?1%"
     )
-    List<PartialModel> findBySearchTerm(@Param("searchTerm") String searchTerm);
-    List<PartialModel> findAllByDiscipline(ClassModel scholarClass);
+    List<PartialModel> findBySearchTerm(String searchTerm);
+    List<PartialModel> findAllByScholarClass(ClassModel scholarClass);
 }

@@ -9,7 +9,7 @@ public interface IUserService {
     public UserDTO getByEmail(String email) throws Exception;
     public List<UserDTO> getAll() throws Exception;
     public UserDTO create(UserDTO userDTO) throws Exception;
-    public List<UserDTO> getBySearchTerm(String searchTerm, Boolean bool) throws Exception;
+    // public List<UserDTO> getBySearchTerm(String searchTerm, Boolean bool) throws Exception;
     public void deleteByEmail(String email) throws Exception;
     public UserDTO update(UserDTO userDTO) throws Exception;
 }

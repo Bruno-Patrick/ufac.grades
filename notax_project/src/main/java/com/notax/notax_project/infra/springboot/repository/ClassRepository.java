@@ -9,6 +9,6 @@ import com.notax.notax_project.infra.springboot.entities.ClassModel;
 import com.notax.notax_project.infra.springboot.entities.DisciplineModel;
 
 @Repository
-public interface ClassRepository extends JpaRepository<Long, ClassModel>{
+public interface ClassRepository extends JpaRepository<ClassModel, Long>{
     List<ClassModel> findByDiscipline(DisciplineModel discipline);
 }

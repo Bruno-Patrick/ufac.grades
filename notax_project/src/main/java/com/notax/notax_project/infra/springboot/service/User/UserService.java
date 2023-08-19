@@ -16,7 +16,7 @@ import com.notax.notax_project.infra.springboot.controller.useCases.User.DeleteU
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetAllUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserByEmailUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserByIdUseCase;
-import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserBySearchTermUseCase;
+// import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserBySearchTermUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.UpdateUserUseCase;
 import com.notax.notax_project.infra.springboot.repository.UserRepository;
 
@@ -25,7 +25,7 @@ public class UserService implements IUserService {
 
     private CreateUserUseCase createUserUseCase;
     private GetUserByEmailUseCase getUserByEmailUseCase;
-    private GetUserBySearchTermUseCase getUserBySearchTermUseCase;
+    // private GetUserBySearchTermUseCase getUserBySearchTermUseCase;
     private GetAllUseCase getAllUseCase;
     private GetUserByIdUseCase getUserByIdUseCase;
     private DeleteUserByEmailUseCase deleteUserByEmailUseCase;
@@ -43,10 +43,10 @@ public class UserService implements IUserService {
             validators
         );
 
-        this.getUserBySearchTermUseCase = new GetUserBySearchTermUseCase(
-            userRepository,
-            validators
-        );
+        // this.getUserBySearchTermUseCase = new GetUserBySearchTermUseCase(
+        //     userRepository,
+        //     validators
+        // );
 
         this.getAllUseCase = new GetAllUseCase(userRepository);
 
@@ -106,10 +106,10 @@ public class UserService implements IUserService {
         return this.updateUserUseCase.execute(userDTO);
     }
 
-    @Override
-    public List<UserDTO> getBySearchTerm(String searchTerm, Boolean bool) throws Exception {
-        return this.getUserBySearchTermUseCase.execute(searchTerm, bool);
-    }
+    // @Override
+    // public List<UserDTO> getBySearchTerm(String searchTerm, Boolean bool) throws Exception {
+    //     return this.getUserBySearchTermUseCase.execute(searchTerm, bool);
+    // }
 
     @Override
     public UserDTO getByID(Long id) throws Exception {
