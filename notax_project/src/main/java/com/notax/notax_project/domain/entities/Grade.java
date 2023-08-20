@@ -1,8 +1,6 @@
 package com.notax.notax_project.domain.entities;
 
 import com.notax.notax_project.domain.error.NullError;
-import com.notax.notax_project.infra.springboot.entities.PartialModel;
-import com.notax.notax_project.infra.springboot.entities.StudentModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

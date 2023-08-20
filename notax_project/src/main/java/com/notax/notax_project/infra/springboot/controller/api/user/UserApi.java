@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,21 +30,25 @@ public class UserApi implements IUserApi {
 
     @Override
     @PostMapping()
-    public ResponseEntity<UserDTO> create(UserDTO userDTO) throws Exception {
+    public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) throws Exception {
+        System.out.println(userDTO.getEmail());
+        System.out.println(userDTO.getName());
+        System.out.println(userDTO.getPassword());
+        System.out.println(userDTO.getPhone());
         UserDTO mDTO = userService.create(userDTO);
         return new ResponseEntity<UserDTO>(mDTO,HttpStatus.CREATED);
     }
 
     @Override
-    @DeleteMapping()
-    public ResponseEntity<UserDTO> delete(String email) throws Exception {
+    @DeleteMapping("/{email}")
+    public ResponseEntity<UserDTO> delete(@PathVariable("email") String email) throws Exception {
         userService.deleteByEmail(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
     @PutMapping()
-    public ResponseEntity<UserDTO> update(UserDTO userDTO) throws Exception {
+    public ResponseEntity<UserDTO> update(@RequestBody UserDTO userDTO) throws Exception {
         UserDTO mDTO = userService.update(userDTO);
         return new ResponseEntity<UserDTO>(mDTO, HttpStatus.OK);
     }

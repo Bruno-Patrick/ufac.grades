@@ -7,32 +7,32 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.notax.notax_project.infra.springboot.entities.UserModel;
+import com.notax.notax_project.application.DTO.UserDTO;
 
 public class UserAuthModel implements UserDetails {
 
-    private UserModel userModel;
+    private UserDTO userDTO;
 
-    public UserAuthModel(UserModel userModel) {
-        this.userModel = userModel;
+    public UserAuthModel(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     public UserAuthModel() {}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority auth = new SimpleGrantedAuthority(userModel.getRole().name());
+        SimpleGrantedAuthority auth = new SimpleGrantedAuthority(userDTO.getRole().name());
         return Arrays.asList(auth);
     }
 
     @Override
     public String getPassword() {
-        return userModel.getPassword();
+        return userDTO.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userModel.getEmail();
+        return userDTO.getEmail();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UserAuthModel implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return userModel.getIsActive();
+        return userDTO.getIsActive();
     }
 
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.application.DTO.UserDTO;
 import com.notax.notax_project.infra.shared.erros.NotFoundError;
-import com.notax.notax_project.infra.springboot.entities.UserModel;
 import com.notax.notax_project.infra.springboot.service.User.UserService;
 
 @Service
@@ -27,13 +26,14 @@ public class UserAuthService implements UserDetailsService {
                 throw new NotFoundError(username);
             }
 
-            UserModel user = new UserModel(userDTO.toEntity());
-            userAuthModel = new UserAuthModel(user);
+            userAuthModel = new UserAuthModel(userDTO);
+        } catch (UsernameNotFoundException e) {
+            e.printStackTrace();
+            throw new UsernameNotFoundException(username);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return userAuthModel;
     }
-
 }

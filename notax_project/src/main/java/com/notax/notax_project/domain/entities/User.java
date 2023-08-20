@@ -28,17 +28,15 @@ public class User {
     private String password;
     private LocalDateTime createTime;
     private UserModel.ROLES role;
+    private Date birthDate;
+    @Builder.Default private Boolean isActive = true;
 
     public void setRole(UserModel.ROLES role) throws NullError {
         if (role == null) {
-            throw new NullError("role");
+            role = UserModel.ROLES.USER;
         }
         this.role = role;
     }
-
-    @Builder.Default private Boolean isActive = true;
-    private Date birthDate;
-
     public void setId(Long id) {
         this.id = id;
     }

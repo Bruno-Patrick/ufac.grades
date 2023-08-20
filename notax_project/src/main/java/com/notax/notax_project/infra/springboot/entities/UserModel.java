@@ -8,6 +8,8 @@ import com.notax.notax_project.domain.entities.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,8 +30,8 @@ import lombok.Setter;
 public class UserModel implements Serializable {
 
     public enum ROLES {
-        ROLE_USER,
-        ROLE_ADMIN
+        USER,
+        ADMIN
     }
 
     public UserModel(User user) {
@@ -62,6 +64,7 @@ public class UserModel implements Serializable {
     private String password;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserModel.ROLES role;
 
     @Column(nullable = false)

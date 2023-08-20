@@ -26,7 +26,7 @@ public class UserDTO implements IDTO {
     Long id;
     @JsonProperty("email")
     String email;
-    @JsonProperty(access = Access.WRITE_ONLY)
+    @JsonProperty(namespace = "password", access = Access.WRITE_ONLY)
     String password;
     @JsonProperty(namespace = "create time", access = Access.READ_ONLY)
     LocalDateTime createTime;
@@ -34,7 +34,7 @@ public class UserDTO implements IDTO {
     String name;
     @JsonProperty("phone")
     String phone;
-    @JsonProperty("active")
+    @JsonProperty(namespace = "active", access = Access.READ_ONLY)
     Boolean isActive;
     @JsonProperty("birth date")
     Date birthDate;
@@ -50,7 +50,7 @@ public class UserDTO implements IDTO {
         this.setPhone(user.getPhone());
         this.setIsActive(user.getIsActive());
         this.setBirthDate(user.getBirthDate());
-        this.setRole(user.getRole());;
+        this.setRole(user.getRole());
     }
 
     public Map<String, Object> toMap() {
@@ -63,22 +63,21 @@ public class UserDTO implements IDTO {
         map.put("phone", this.phone);
         map.put("isActive", this.isActive);
         map.put("birthDate", this.birthDate);
-        map.put("role", this.role);
         return map;
     }
 
     public User toEntity() {
         return User
-                .builder()
-                .id(this.id)
-                .email(this.email)
-                .name(this.name)
-                .phone(this.phone)
-                .password(this.password)
-                .createTime(this.createTime)
-                .isActive(this.isActive)
-                .birthDate(this.birthDate)
-                .role(this.role)
-                .build();
+            .builder()
+            .id(this.id)
+            .email(this.email)
+            .name(this.name)
+            .phone(this.phone)
+            .password(this.password)
+            .createTime(this.createTime)
+            .isActive(this.isActive)
+            .role(this.role)
+            .birthDate(this.birthDate)
+            .build();
     }
 }

@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.notax.notax_project.domain.error.NullError;
-import com.notax.notax_project.infra.springboot.entities.DisciplineModel;
-import com.notax.notax_project.infra.springboot.entities.StudentModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

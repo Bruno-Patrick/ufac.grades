@@ -3,8 +3,6 @@ package com.notax.notax_project.domain.entities;
 import java.util.Date;
 
 import com.notax.notax_project.domain.error.NullError;
-import com.notax.notax_project.infra.springboot.entities.ClassModel;
-import com.notax.notax_project.infra.springboot.entities.StudentModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
