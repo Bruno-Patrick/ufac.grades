@@ -34,23 +34,21 @@
             </span>
         </div>
         <div>
+            <!-- <mat-form-field id="login-inputs">
+                <mat-label>Type your email</mat-label>
+            </mat-form-field> -->
             <form action="submit" id="login-inputs">
                 <input
-                    type="email"
-                    name="email"
-                    id="input-email"
-                    placeholder="Type your email">
-                <input
-                    type="password"
-                    name="password"
-                    id="input-password"
-                    placeholder="Type your password">
+                       type="email" name="email"
+                       id="input-email" placeholder="Type your email"
+                       >
+                <input type="password" name="password" id="input-password" placeholder="Type your password">
                 <div id="button-submit">
                     <button type="submit" id="form-submit">Let's go!</button>
                 </div>
                 <div id="other-texts">
                     <span>
-                        <a href="#">Don't have account? Join now!</a>
+                        <a routerLink="/register">Don't have account? Join now!</a>
                         <a href="#">Forgot your password?</a>
                     </span>
                 </div>

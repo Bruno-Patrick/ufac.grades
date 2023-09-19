@@ -1,0 +1,68 @@
+div.div-logo {
+    display: flex;
+}
+
+img.logo, form.register-box {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin fontStyle {
+    color: white;
+    font-family: 'Abel';
+    font-style: normal;
+}
+
+form.register-box {
+
+    @include fontStyle();
+
+    p {
+        display: flex;
+        justify-content: center;
+        margin-top: 1em;
+
+        font-weight: 400;
+        font-size: 19px;
+    }
+
+    box-sizing: border-box;
+
+    width: 815px;
+    height: 455px;
+    margin-top: 2em;
+
+    background: #161B22;
+    border: 0.5px solid #30363D;
+    border-radius: 20px;
+
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+}
+
+div.form-input label {
+    margin-right: 1em;
+}
+
+div.form-input input {
+    box-sizing: border-box;
+    background: #28313E;
+    border: 0.5px solid #3D454F;
+    border-radius: 20px;
+    width: 578px;
+    height: 38px;
+}
+
+div.button {
+    display: flex;
+    justify-content: center;
+
+    button {
+        background-color: transparent;
+        border: none;
+        @include fontStyle();
+        font-weight: 400;
+        font-size: 19px;
+    }
+}

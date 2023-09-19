@@ -1,0 +1,35 @@
+div.div-logo, div.div-button {
+    display: flex;
+}
+
+img.logo, button.to-login-button {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img.logo {
+    margin-top: 9.5em;
+}
+
+button.to-login-button {
+    box-sizing: border-box;
+
+    width: 206px;
+    height: 82px;
+    background: #161B22;
+    border: 0.5px solid #30363D;
+    border-radius: 20px;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        margin-left: 0.25em;
+    }
+}
+
+button.to-login-button:hover {
+    cursor: pointer;
+}
