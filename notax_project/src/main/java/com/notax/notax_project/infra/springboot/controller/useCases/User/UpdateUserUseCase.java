@@ -2,6 +2,8 @@ package com.notax.notax_project.infra.springboot.controller.useCases.User;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.notax.notax_project.application.DTO.UserDTO;
 import com.notax.notax_project.infra.shared.validators.IValidator;
 import com.notax.notax_project.infra.springboot.controller.useCases.IUseCase;
@@ -22,7 +24,7 @@ public class UpdateUserUseCase implements IUseCase<UserDTO, UserDTO> {
     }
 
     @Override
-    public UserDTO execute(UserDTO userDTO) throws Exception {
+    public UserDTO execute(UserDTO userDTO, UserDetails user) throws Exception {
 
         for (IValidator<UserDTO, Exception> validator : validators) {
             validator.validate(userDTO);

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.application.DTO.StudentDTO;
@@ -65,28 +66,28 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public StudentDTO create(StudentDTO studentDTO) throws Exception {
-        return this.createStudentUseCase.execute(studentDTO);
+    public StudentDTO create(StudentDTO studentDTO, UserDetails auth) throws Exception {
+        return this.createStudentUseCase.execute(studentDTO, auth);
     }
 
     @Override
-    public StudentDTO update(StudentDTO studentDTO) throws Exception {
-        return this.updateStudentUseCase.execute(studentDTO);
+    public StudentDTO update(StudentDTO studentDTO, UserDetails auth) throws Exception {
+        return this.updateStudentUseCase.execute(studentDTO, auth);
     }
 
     @Override
-    public void deleteById(Long id) throws Exception {
-        this.deleteStudentByIdUseCase.execute(id);
+    public void deleteById(Long id, UserDetails auth) throws Exception {
+        this.deleteStudentByIdUseCase.execute(id, auth);
     }
 
     @Override
-    public StudentDTO getById(Long id) throws Exception {
-        return this.getStudentByIdUseCase.execute(id);
+    public StudentDTO getById(Long id, UserDetails auth) throws Exception {
+        return this.getStudentByIdUseCase.execute(id, auth);
     }
 
     @Override
-    public List<StudentDTO> getByEmail(String email) throws Exception {
-        return this.getStudentByEmailUseCase.execute(email);
+    public List<StudentDTO> getByEmail(String email, UserDetails auth) throws Exception {
+        return this.getStudentByEmailUseCase.execute(email, auth);
     }
 
 }

@@ -4,18 +4,17 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.notax.notax_project.application.DTO.UserDTO;
-import com.notax.notax_project.infra.shared.erros.NotFoundError;
+import com.notax.notax_project.infra.shared.erros.UnauthorizedUserError;
 import com.notax.notax_project.infra.shared.validators.IValidator;
-import com.notax.notax_project.infra.springboot.controller.useCases.IUseCase;
+import com.notax.notax_project.infra.springboot.controller.useCases.IVoidAuthenticationUseCase;
 import com.notax.notax_project.infra.springboot.entities.UserModel;
 import com.notax.notax_project.infra.springboot.repository.IUserRepository;
 
-public class GetUserByIdUseCase implements IUseCase<Long, UserDTO> {
-    private IUserRepository userRepository;
+public class DeleteUserByIdUseCase implements IVoidAuthenticationUseCase<Long>  {
     private List<IValidator<Long, Exception>> validators;
+    private IUserRepository userRepository;
 
-    public GetUserByIdUseCase(
+    public DeleteUserByIdUseCase(
         IUserRepository userRepository,
         List<IValidator<Long, Exception>> validators
     ) {
@@ -24,17 +23,17 @@ public class GetUserByIdUseCase implements IUseCase<Long, UserDTO> {
     }
 
     @Override
-    public UserDTO execute(Long id, UserDetails auth) throws Exception {
+    public void execute(Long id, UserDetails user) throws Exception {
 
         for (IValidator<Long, Exception> validator : validators) {
             validator.validate(id);
         }
-        UserModel user = this.userRepository.findByIdAndIsActiveIsTrue(id);
 
-        if (user == null) {
-            throw new NotFoundError(id.toString());
+        UserModel userModel = this.userRepository.getReferenceById(id);
+        if (userModel.equals(user)) {
+            this.userRepository.deleteById(id);
+        } else {
+            throw new UnauthorizedUserError(user.getUsername());
         }
-        return new UserDTO(user.toEntity());
     }
-
 }

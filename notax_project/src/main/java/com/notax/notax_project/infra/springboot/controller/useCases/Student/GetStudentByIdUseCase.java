@@ -2,6 +2,8 @@ package com.notax.notax_project.infra.springboot.controller.useCases.Student;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.notax.notax_project.application.DTO.StudentDTO;
 import com.notax.notax_project.infra.shared.validators.IValidator;
 import com.notax.notax_project.infra.springboot.controller.useCases.IUseCase;
@@ -21,7 +23,7 @@ public class GetStudentByIdUseCase implements IUseCase<Long, StudentDTO> {
     }
 
     @Override
-    public StudentDTO execute(Long id) throws Exception {
+    public StudentDTO execute(Long id, UserDetails auth) throws Exception {
 
         for (IValidator<Long, Exception> validator : validators) {
             validator.validate(id);

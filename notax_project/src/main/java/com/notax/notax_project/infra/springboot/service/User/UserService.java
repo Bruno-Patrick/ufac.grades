@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.notax.notax_project.application.DTO.UserDTO;
@@ -12,13 +13,14 @@ import com.notax.notax_project.infra.shared.validators.NotEmptyValidator;
 import com.notax.notax_project.infra.shared.validators.NotNullFieldValidator;
 import com.notax.notax_project.infra.shared.validators.NotNullValidator;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.CreateUserUseCase;
-import com.notax.notax_project.infra.springboot.controller.useCases.User.DeleteUserByEmailUseCase;
+import com.notax.notax_project.infra.springboot.controller.useCases.User.DeleteUserByIdUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetAllUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserByEmailUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserByIdUseCase;
 // import com.notax.notax_project.infra.springboot.controller.useCases.User.GetUserBySearchTermUseCase;
 import com.notax.notax_project.infra.springboot.controller.useCases.User.UpdateUserUseCase;
 import com.notax.notax_project.infra.springboot.repository.IUserRepository;
+import com.notax.notax_project.infra.springboot.service.Student.IUserService;
 
 @Service
 public class UserService implements IUserService {
@@ -27,7 +29,7 @@ public class UserService implements IUserService {
     private GetUserByEmailUseCase getUserByEmailUseCase;
     private GetAllUseCase getAllUseCase;
     private GetUserByIdUseCase getUserByIdUseCase;
-    private DeleteUserByEmailUseCase deleteUserByEmailUseCase;
+    private DeleteUserByIdUseCase deleteUserByIdUseCase;
     private UpdateUserUseCase updateUserUseCase;
 
     public UserService(IUserRepository IUserRepository) {
@@ -61,11 +63,10 @@ public class UserService implements IUserService {
             ).collect(Collectors.toList())
         );
 
-        this.deleteUserByEmailUseCase = new DeleteUserByEmailUseCase(
+        this.deleteUserByIdUseCase = new DeleteUserByIdUseCase(
             IUserRepository,
             Stream.of(
-                new NotEmptyValidator("email"),
-                new NotNullValidator<String>("email")
+                new NotNullValidator<Long>("id")
             ).collect(Collectors.toList())
         );
 
@@ -86,28 +87,28 @@ public class UserService implements IUserService {
 
 
     @Override
-    public UserDTO create(UserDTO userDTO) throws Exception {
-        return this.createUserUseCase.execute(userDTO);
+    public UserDTO create(UserDTO userDTO, UserDetails auth) throws Exception {
+        return this.createUserUseCase.execute(userDTO, auth);
     }
 
     @Override
-    public void deleteByEmail(String email) throws Exception {
-        this.deleteUserByEmailUseCase.execute(email);;
+    public void deleteById(Long id, UserDetails user) throws Exception {
+        this.deleteUserByIdUseCase.execute(id, user);
     }
 
     @Override
-    public UserDTO update(UserDTO userDTO) throws Exception {
-        return this.updateUserUseCase.execute(userDTO);
+    public UserDTO update(UserDTO userDTO, UserDetails user) throws Exception {
+        return this.updateUserUseCase.execute(userDTO, user);
     }
 
     @Override
-    public UserDTO getByID(Long id) throws Exception {
-        return this.getUserByIdUseCase.execute(id);
+    public UserDTO getByID(Long id, UserDetails user) throws Exception {
+        return this.getUserByIdUseCase.execute(id, user);
     }
 
     @Override
-    public UserDTO getByEmail(String email) throws Exception {
-        return this.getUserByEmailUseCase.execute(email);
+    public UserDTO getByEmail(String email, UserDetails auth) throws Exception {
+        return this.getUserByEmailUseCase.execute(email, auth);
     }
 
     @Override

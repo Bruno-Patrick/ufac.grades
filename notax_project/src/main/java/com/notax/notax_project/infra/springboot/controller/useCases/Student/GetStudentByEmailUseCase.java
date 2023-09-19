@@ -3,6 +3,8 @@ package com.notax.notax_project.infra.springboot.controller.useCases.Student;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.notax.notax_project.application.DTO.StudentDTO;
 import com.notax.notax_project.infra.shared.validators.IValidator;
 import com.notax.notax_project.infra.springboot.controller.useCases.IUseCase;
@@ -22,7 +24,7 @@ public class GetStudentByEmailUseCase implements IUseCase<String, List<StudentDT
     }
 
     @Override
-    public List<StudentDTO> execute(String email) throws Exception {
+    public List<StudentDTO> execute(String email, UserDetails auth) throws Exception {
 
         for (IValidator<String, Exception> validator : validators) {
             validator.validate(email);

@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import com.notax.notax_project.domain.entities.User;
+import com.notax.notax_project.infra.springboot.config.UserAuthModel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -91,5 +94,18 @@ public class UserModel implements Serializable {
             .birthDate(this.birthDate)
             .role(this.role)
             .build();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        UserAuthModel o = (UserAuthModel) obj;
+
+        if (o.getUsername().equals(this.getEmail()) || o.getAuthorities().contains(
+                new SimpleGrantedAuthority(UserModel.ROLES.ADMIN.name())
+            )
+        ) {
+            return true;
+        }
+        return false;
     }
 }

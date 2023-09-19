@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.notax.notax_project.application.DTO.UserDTO;
+import com.notax.notax_project.infra.shared.erros.EntityAlreadyExists;
 import com.notax.notax_project.infra.shared.erros.NotFoundError;
+import com.notax.notax_project.infra.shared.erros.UnauthorizedUserError;
+import com.notax.notax_project.infra.springboot.config.UserAuthModel;
 import com.notax.notax_project.infra.springboot.service.User.UserService;
 
 @RestController
@@ -31,25 +37,38 @@ public class UserApi implements IUserApi {
     @Override
     @PostMapping()
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) throws Exception {
-        System.out.println(userDTO.getEmail());
-        System.out.println(userDTO.getName());
-        System.out.println(userDTO.getPassword());
-        System.out.println(userDTO.getPhone());
-        UserDTO mDTO = userService.create(userDTO);
-        return new ResponseEntity<UserDTO>(mDTO,HttpStatus.CREATED);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserAuthModel) authentication.getPrincipal();
+
+        try {
+            UserDTO mDTO = userService.create(userDTO, user);
+            return new ResponseEntity<UserDTO>(mDTO,HttpStatus.CREATED);
+        } catch (EntityAlreadyExists e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
-    @DeleteMapping("/{email}")
-    public ResponseEntity<UserDTO> delete(@PathVariable("email") String email) throws Exception {
-        userService.deleteByEmail(email);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDTO> delete(@PathVariable("id") Long id) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserAuthModel) authentication.getPrincipal();
+
+        try {
+            userService.deleteById(id, user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (UnauthorizedUserError e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @Override
     @PutMapping()
     public ResponseEntity<UserDTO> update(@RequestBody UserDTO userDTO) throws Exception {
-        UserDTO mDTO = userService.update(userDTO);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserAuthModel) authentication.getPrincipal();
+
+        UserDTO mDTO = userService.update(userDTO, user);
         return new ResponseEntity<UserDTO>(mDTO, HttpStatus.OK);
     }
 
@@ -63,8 +82,11 @@ public class UserApi implements IUserApi {
     @Override
     @GetMapping("/email/{email}")
     public ResponseEntity<UserDTO> getByEmail(@PathVariable("email") String email) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserAuthModel) authentication.getPrincipal();
+
         try {
-            UserDTO userDTO = userService.getByEmail(email);
+            UserDTO userDTO = userService.getByEmail(email, user);
             return new ResponseEntity<UserDTO>(userDTO,HttpStatus.OK);
         } catch (NotFoundError e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -74,8 +96,11 @@ public class UserApi implements IUserApi {
     @Override
     @GetMapping("/id/{id}")
     public ResponseEntity<UserDTO> getById(@PathVariable("id") Long id) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserAuthModel) authentication.getPrincipal();
+
         try {
-            UserDTO userDTO = userService.getByID(id);
+            UserDTO userDTO = userService.getByID(id, user);
             return new ResponseEntity<UserDTO>(userDTO,HttpStatus.OK);
         } catch (NotFoundError e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -2,6 +2,8 @@ package com.notax.notax_project.infra.springboot.controller.useCases.User;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.notax.notax_project.application.DTO.UserDTO;
 import com.notax.notax_project.infra.shared.erros.NotFoundError;
 import com.notax.notax_project.infra.shared.validators.IValidator;
@@ -23,7 +25,7 @@ public class GetUserByEmailUseCase implements IUseCase<String, UserDTO> {
     }
 
     @Override
-    public UserDTO execute(String email) throws Exception {
+    public UserDTO execute(String email, UserDetails auth) throws Exception {
 
         for (IValidator<String, Exception> validator : validators) {
             validator.validate(email);

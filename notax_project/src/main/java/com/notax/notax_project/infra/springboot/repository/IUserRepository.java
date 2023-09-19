@@ -14,4 +14,5 @@ public interface IUserRepository extends JpaRepository<UserModel, Long> {
     long countByIsActiveTrue();
     UserModel findByIdAndIsActiveIsTrue(Long id);
     void deleteByEmail(String email);
+    boolean existsByEmail(String email);
 }
